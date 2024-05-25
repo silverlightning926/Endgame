@@ -13,9 +13,9 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              "Powered By\nThe Blue Alliance",
+              "Powered By\nThe Blue Alliance and Statbotics",
               textAlign: TextAlign.right,
-              style: GoogleFonts.ubuntu(
+              style: GoogleFonts.ptSansNarrow(
                 fontSize: 10,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w400,
