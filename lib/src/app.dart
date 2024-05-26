@@ -1,5 +1,7 @@
+import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Endgame extends StatelessWidget {
@@ -12,18 +14,22 @@ class Endgame extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.black,
         appBarTheme: AppBarTheme(
-          color: Colors.purple,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: ColorConstants.navigationColor,
+          ),
+          color: ColorConstants.navigationColor,
           elevation: 0,
           titleTextStyle: GoogleFonts.majorMonoDisplay(
-              fontSize: 35,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.w600),
+            fontSize: 35,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           elevation: 0,
-          backgroundColor: Colors.purple,
+          backgroundColor: ColorConstants.navigationColor,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.purple[200],
+          unselectedItemColor: Color(0x99FFFFFF),
         ),
       ),
       home: const HomeScreen(),
