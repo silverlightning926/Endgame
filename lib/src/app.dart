@@ -16,7 +16,7 @@ class Endgame extends StatelessWidget {
         appBarTheme: AppBarTheme(
           elevation: 0,
           titleTextStyle: GoogleFonts.majorMonoDisplay(
-            fontSize: 35,
+            fontSize: 40,
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.bold,
           ),

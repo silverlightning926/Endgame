@@ -33,36 +33,53 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(15),
+              ),
+              gradient: ColorConstants.navigationGradient,
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+              tooltip: "Search",
+            ),
+          ],
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(15),
             ),
-            gradient: ColorConstants.navigationGradient,
           ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              "Powered By\nThe Blue Alliance and Statbotics",
-              textAlign: TextAlign.right,
-              style: GoogleFonts.ptSansNarrow(
-                fontSize: 10,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w400,
-                color: const Color(0xCCFFFFFF),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              const Text(
+                "ENDGAME",
               ),
-            ),
-          ),
-        ],
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(15),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 4.0,
+                  top: 7.0,
+                ),
+                child: Text(
+                  "Powered by The Blue Alliance & Statbotics",
+                  style: GoogleFonts.robotoCondensed(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white.withOpacity(0.6),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        title: const Text("ENDGAME"),
       ),
       bottomNavigationBar: RoundedBottomNavigationBar(
         currentIndex: _currentIndex,
