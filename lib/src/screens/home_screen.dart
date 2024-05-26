@@ -1,9 +1,33 @@
 import 'package:endgame/src/components/navigation_elements/rounded_bottom_navigation_bar.dart';
+import 'package:endgame/src/components/tabs/events_tab.dart';
+import 'package:endgame/src/components/tabs/home_tab.dart';
+import 'package:endgame/src/components/tabs/settings_tab.dart';
+import 'package:endgame/src/components/tabs/teams_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  static const List<Widget> navigationTabs = [
+    HomeTab(),
+    EventsTab(),
+    TeamsTab(),
+    SettingsTab(),
+  ];
+
+  void _onTabSelected(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                 fontSize: 10,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w400,
-                color: Colors.purple[100],
+                color: const Color(0xCCFFFFFF),
               ),
             ),
           ),
@@ -31,7 +55,11 @@ class HomeScreen extends StatelessWidget {
         ),
         title: const Text("ENDGAME"),
       ),
-      bottomNavigationBar: const RoundedBottomNavigationBar(),
+      bottomNavigationBar: RoundedBottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabSelected,
+      ),
+      body: navigationTabs[_currentIndex],
     );
   }
 }

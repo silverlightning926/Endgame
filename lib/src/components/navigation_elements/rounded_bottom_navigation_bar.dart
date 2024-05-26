@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 
-class RoundedBottomNavigationBar extends StatefulWidget {
+class RoundedBottomNavigationBar extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onTap;
+
   const RoundedBottomNavigationBar({
     super.key,
+    required this.currentIndex,
+    required this.onTap,
   });
-
-  @override
-  State<RoundedBottomNavigationBar> createState() =>
-      _RoundedBottomNavigationBarState();
-}
-
-class _RoundedBottomNavigationBarState
-    extends State<RoundedBottomNavigationBar> {
-  var _currentSelectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +19,9 @@ class _RoundedBottomNavigationBarState
       child: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        currentIndex: _currentSelectedIndex,
         type: BottomNavigationBarType.fixed,
-        onTap: (newIndex) {
-          setState(() {
-            _currentSelectedIndex = newIndex;
-          });
-        },
+        currentIndex: currentIndex,
+        onTap: onTap,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.event), label: "Events"),
