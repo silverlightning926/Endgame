@@ -1,3 +1,4 @@
+import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 class RoundedBottomNavigationBar extends StatelessWidget {
@@ -16,18 +17,29 @@ class RoundedBottomNavigationBar extends StatelessWidget {
       borderRadius: const BorderRadius.vertical(
         top: Radius.circular(15),
       ),
-      child: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
-        onTap: onTap,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.event), label: "Events"),
-          BottomNavigationBarItem(icon: Icon(Icons.group), label: "Teams"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "Settings"),
+      child: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: ColorConstants.navigationGradient,
+            ),
+            height: 55,
+          ),
+          BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            backgroundColor: Colors.transparent,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: currentIndex,
+            onTap: onTap,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.event), label: "Events"),
+              BottomNavigationBarItem(icon: Icon(Icons.group), label: "Teams"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), label: "Settings"),
+            ],
+          ),
         ],
       ),
     );

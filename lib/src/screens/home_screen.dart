@@ -3,6 +3,7 @@ import 'package:endgame/src/components/tabs/events_tab.dart';
 import 'package:endgame/src/components/tabs/home_tab.dart';
 import 'package:endgame/src/components/tabs/settings_tab.dart';
 import 'package:endgame/src/components/tabs/teams_tab.dart';
+import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,6 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(15),
+            ),
+            gradient: ColorConstants.navigationGradient,
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -12,12 +12,8 @@ class Endgame extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
+        scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColor,
         appBarTheme: AppBarTheme(
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: ColorConstants.navigationColor,
-          ),
-          color: ColorConstants.navigationColor,
           elevation: 0,
           titleTextStyle: GoogleFonts.majorMonoDisplay(
             fontSize: 35,
@@ -27,7 +23,6 @@ class Endgame extends StatelessWidget {
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           elevation: 0,
-          backgroundColor: ColorConstants.navigationColor,
           selectedItemColor: Colors.white,
           unselectedItemColor: Color(0x99FFFFFF),
         ),
