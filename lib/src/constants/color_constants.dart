@@ -9,7 +9,7 @@ class ColorConstants {
     ],
     colors: [
       Color.fromARGB(255, 51, 35, 219),
-      Color.fromARGB(255, 101, 91, 219),
+      Color.fromARGB(255, 105, 93, 241),
       Color.fromARGB(255, 51, 35, 219),
     ],
     begin: Alignment.topLeft,
