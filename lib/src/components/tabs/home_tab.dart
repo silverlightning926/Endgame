@@ -1,3 +1,6 @@
+import 'package:endgame/src/components/dialog/announcement_dialog.dart';
+import 'package:endgame/src/components/dialog/followed_activity_dialog.dart';
+import 'package:endgame/src/components/dialog/followed_dialog.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
@@ -5,8 +8,20 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home Tab'),
+    return ListView(
+      padding: const EdgeInsets.only(
+        top: 135,
+        left: 7,
+        right: 7,
+      ),
+      children: const [
+        AnnouncementDialog(
+          announcementText:
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget nunc nec nunc ultricies ultricies.",
+        ),
+        FollowedActivityDialog(),
+        FollowedTeamsDialog(),
+      ],
     );
   }
 }
