@@ -2,7 +2,7 @@ import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class UpcomingMatchOverviewCard extends StatelessWidget {
+class RecentMatchOverviewCard extends StatelessWidget {
   final String teamNumber;
   final String eventName;
 
@@ -14,12 +14,16 @@ class UpcomingMatchOverviewCard extends StatelessWidget {
   final String redTeam1;
   final String redTeam2;
   final String redTeam3;
+  final String redTeamScore;
+  final int? redTeamRP;
 
   final String blueTeam1;
   final String blueTeam2;
   final String blueTeam3;
+  final String blueTeamScore;
+  final int? blueTeamRP;
 
-  const UpcomingMatchOverviewCard({
+  const RecentMatchOverviewCard({
     super.key,
     required this.teamNumber,
     required this.eventName,
@@ -32,6 +36,10 @@ class UpcomingMatchOverviewCard extends StatelessWidget {
     required this.blueTeam2,
     required this.blueTeam3,
     required this.matchDateTime,
+    required this.redTeamScore,
+    required this.blueTeamScore,
+    this.redTeamRP,
+    this.blueTeamRP,
   });
 
   @override
@@ -62,17 +70,20 @@ class UpcomingMatchOverviewCard extends StatelessWidget {
                 ),
               ),
               child: MatchTeamTable(
-                  teamNumber: teamNumber,
-                  eventName: eventName,
-                  matchDateTime: matchDateTime,
-                  matchNumber: matchNumber,
-                  matchType: matchType,
-                  redTeam1: redTeam1,
-                  redTeam2: redTeam2,
-                  redTeam3: redTeam3,
-                  blueTeam1: blueTeam1,
-                  blueTeam2: blueTeam2,
-                  blueTeam3: blueTeam3),
+                teamNumber: teamNumber,
+                eventName: eventName,
+                matchDateTime: matchDateTime,
+                matchNumber: matchNumber,
+                matchType: matchType,
+                redTeam1: redTeam1,
+                redTeam2: redTeam2,
+                redTeam3: redTeam3,
+                blueTeam1: blueTeam1,
+                blueTeam2: blueTeam2,
+                blueTeam3: blueTeam3,
+                redTeamAmountOfRP: redTeamRP,
+                blueTeamAmountOfRP: blueTeamRP,
+              ),
             ),
           ),
         ),
@@ -95,6 +106,8 @@ class MatchTeamTable extends StatelessWidget {
     required this.blueTeam1,
     required this.blueTeam2,
     required this.blueTeam3,
+    this.redTeamAmountOfRP,
+    this.blueTeamAmountOfRP,
   });
 
   final String teamNumber;
@@ -105,9 +118,11 @@ class MatchTeamTable extends StatelessWidget {
   final String redTeam1;
   final String redTeam2;
   final String redTeam3;
+  final int? redTeamAmountOfRP;
   final String blueTeam1;
   final String blueTeam2;
   final String blueTeam3;
+  final int? blueTeamAmountOfRP;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +154,7 @@ class MatchTeamTable extends StatelessWidget {
         const Divider(color: Colors.white),
         const SizedBox(height: 5),
         Text(
-          "Upcoming Match",
+          "Recent Match",
           style: GoogleFonts.roboto(
             color: ColorConstants.dialogTextColor,
             fontSize: 18,
@@ -188,12 +203,14 @@ class MatchTeamTable extends StatelessWidget {
               redTeam1: redTeam1,
               redTeam2: redTeam2,
               redTeam3: redTeam3,
+              amountOfRP: redTeamAmountOfRP,
             ),
             const SizedBox(height: 5),
             BlueAllianceTable(
               blueTeam1: blueTeam1,
               blueTeam2: blueTeam2,
               blueTeam3: blueTeam3,
+              amountOfRP: blueTeamAmountOfRP,
             ),
           ],
         ),
@@ -208,11 +225,13 @@ class RedAllianceTable extends StatelessWidget {
     required this.redTeam1,
     required this.redTeam2,
     required this.redTeam3,
+    this.amountOfRP,
   });
 
   final String redTeam1;
   final String redTeam2;
   final String redTeam3;
+  final int? amountOfRP;
 
   @override
   Widget build(BuildContext context) {
@@ -255,6 +274,11 @@ class RedAllianceTable extends StatelessWidget {
                 TeamButton(team: redTeam2),
                 const SizedBox(width: 5),
                 TeamButton(team: redTeam3),
+                const SizedBox(width: 5),
+                TeamScore(
+                  score: "70",
+                  amountOfRP: amountOfRP,
+                ),
               ],
             ),
           ),
@@ -270,11 +294,14 @@ class BlueAllianceTable extends StatelessWidget {
     required this.blueTeam1,
     required this.blueTeam2,
     required this.blueTeam3,
+    this.amountOfRP,
   });
 
   final String blueTeam1;
   final String blueTeam2;
   final String blueTeam3;
+
+  final int? amountOfRP;
 
   @override
   Widget build(BuildContext context) {
@@ -317,7 +344,54 @@ class BlueAllianceTable extends StatelessWidget {
                 TeamButton(team: blueTeam2),
                 const SizedBox(width: 5),
                 TeamButton(team: blueTeam3),
+                const SizedBox(width: 5),
+                TeamScore(
+                  score: "70",
+                  amountOfRP: amountOfRP,
+                ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TeamScore extends StatelessWidget {
+  final String score;
+  final int? amountOfRP;
+
+  const TeamScore({
+    super.key,
+    required this.score,
+    this.amountOfRP,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Ink(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Colors.grey[700],
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Column(
+        children: [
+          amountOfRP != null
+              ? Text(
+                  "•" * amountOfRP!,
+                  style: GoogleFonts.roboto(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              : const SizedBox(),
+          Text(
+            score,
+            style: GoogleFonts.roboto(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:endgame/src/components/recent_match_overview_card.dart';
 import 'package:endgame/src/components/upcoming_match_overview_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,28 @@ class FollowedActivityDialog extends StatelessWidget {
                     blueTeam1: '2046',
                     blueTeam2: '2976',
                     blueTeam3: '1690',
-                    matchDateTime: DateTime.now().add(const Duration(days: 1)),
+                    matchDateTime: DateTime.now().add(
+                      const Duration(days: 1),
+                    ),
+                  ),
+                  RecentMatchOverviewCard(
+                    teamNumber: '2910',
+                    eventName: 'Glacier Peak District Event',
+                    matchNumber: '34',
+                    matchType: 'Qualification',
+                    redTeam1: '2910',
+                    redTeam2: '1778',
+                    redTeam3: '4089',
+                    blueTeam1: '2046',
+                    blueTeam2: '2976',
+                    blueTeam3: '1690',
+                    matchDateTime: DateTime.now().subtract(
+                      const Duration(days: 1),
+                    ),
+                    redTeamScore: "100",
+                    blueTeamScore: "200",
+                    redTeamRP: 2,
+                    blueTeamRP: 3,
                   ),
                   UpcomingMatchOverviewCard(
                     teamNumber: '1678',
@@ -59,7 +81,9 @@ class FollowedActivityDialog extends StatelessWidget {
                     blueTeam1: '254',
                     blueTeam2: '5940',
                     blueTeam3: '1323',
-                    matchDateTime: DateTime.now().add(const Duration(days: 2)),
+                    matchDateTime: DateTime.now().add(
+                      const Duration(days: 2),
+                    ),
                   ),
                 ],
               ),
