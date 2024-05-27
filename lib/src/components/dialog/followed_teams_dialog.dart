@@ -19,7 +19,7 @@ class FollowedTeamsDialog extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          FollowedTeamDialogTitle(),
+          FollowedTeamsDialogTitle(),
           Column(
             children: [
               FollowedTeamCard(
@@ -42,17 +42,17 @@ class FollowedTeamsDialog extends StatelessWidget {
   }
 }
 
-class FollowedTeamDialogTitle extends StatefulWidget {
-  const FollowedTeamDialogTitle({
+class FollowedTeamsDialogTitle extends StatefulWidget {
+  const FollowedTeamsDialogTitle({
     super.key,
   });
 
   @override
-  State<FollowedTeamDialogTitle> createState() =>
-      _FollowedTeamDialogTitleState();
+  State<FollowedTeamsDialogTitle> createState() =>
+      _FollowedTeamsDialogTitleState();
 }
 
-class _FollowedTeamDialogTitleState extends State<FollowedTeamDialogTitle> {
+class _FollowedTeamsDialogTitleState extends State<FollowedTeamsDialogTitle> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -62,7 +62,7 @@ class _FollowedTeamDialogTitleState extends State<FollowedTeamDialogTitle> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            "Followed Team",
+            "Followed Teams",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
