@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ColorConstants {
   // Dialog Color Constants
 
-  static const Color dialogColor = Color.fromARGB(255, 47, 44, 84);
+  static const Color dialogColor = Color.fromARGB(255, 27, 18, 34);
   static const Color dialogTextColor = Colors.white;
   static const Color dialogButtonColor = Colors.white;
 
