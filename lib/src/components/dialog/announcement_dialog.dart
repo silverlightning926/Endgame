@@ -42,6 +42,7 @@ class _AnnouncementDialogState extends State<AnnouncementDialog> {
               widget.announcementText,
               style: GoogleFonts.roboto(
                 fontSize: 16,
+                color: ColorConstants.dialogTextColor,
               ),
             ),
           ],
@@ -74,6 +75,7 @@ class _AnnouncmentDialogTitleState extends State<AnnouncmentDialogTitle> {
             style: GoogleFonts.roboto(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: ColorConstants.dialogTextColor,
             ),
           ),
           IconButton(
@@ -81,6 +83,7 @@ class _AnnouncmentDialogTitleState extends State<AnnouncmentDialogTitle> {
               Icons.close,
               size: 17,
             ),
+            color: ColorConstants.dialogButtonColor,
             onPressed: widget.onPressed,
           ),
         ],

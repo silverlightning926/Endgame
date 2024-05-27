@@ -66,6 +66,7 @@ class _FollowedTeamDialogTitleState extends State<FollowedTeamDialogTitle> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: ColorConstants.dialogTextColor,
             ),
           ),
           IconButton(
@@ -73,6 +74,7 @@ class _FollowedTeamDialogTitleState extends State<FollowedTeamDialogTitle> {
               Icons.add,
               size: 17,
             ),
+            color: ColorConstants.dialogButtonColor,
             onPressed: () {},
           ),
         ],

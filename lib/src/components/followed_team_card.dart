@@ -1,3 +1,4 @@
+import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,14 +41,14 @@ class FollowedTeamCard extends StatelessWidget {
                     style: GoogleFonts.roboto(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: ColorConstants.dialogTextColor,
                     ),
                   ),
                   Text(
                     teamNumber,
                     style: GoogleFonts.roboto(
                       fontSize: 15,
-                      color: Colors.white,
+                      color: ColorConstants.dialogTextColor,
                     ),
                   ),
                 ],
@@ -57,7 +58,7 @@ class FollowedTeamCard extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.star),
-            color: Colors.yellow,
+            color: ColorConstants.followedTeamCardFollowButtomColor,
           ),
         ],
       ),
@@ -79,7 +80,8 @@ class TeamImageReplacement extends StatelessWidget {
       width: 65,
       height: 65,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color:
+            ColorConstants.followedTeamCardTeamImageReplacementBackgroundColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
@@ -87,6 +89,7 @@ class TeamImageReplacement extends StatelessWidget {
           teamNumber,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
+            color: ColorConstants.followedTeamCardTeamImageReplacementTextColor,
           ),
         ),
       ),

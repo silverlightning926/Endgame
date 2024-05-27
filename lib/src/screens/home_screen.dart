@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: GoogleFonts.robotoCondensed(
                     fontSize: 11.0,
                     fontWeight: FontWeight.w300,
-                    color: Colors.white.withOpacity(0.6),
+                    color: ColorConstants.secondaryNavigationColor,
                   ),
                 ),
               ),
