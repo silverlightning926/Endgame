@@ -22,7 +22,7 @@ class _AnnouncementDialogState extends State<AnnouncementDialog> {
     return Visibility(
       visible: isAnnouncementVisible,
       child: Container(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           color: ColorConstants.dialogColor,

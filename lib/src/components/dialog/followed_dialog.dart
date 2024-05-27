@@ -10,7 +10,7 @@ class FollowedTeamsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: ColorConstants.dialogColor,
@@ -56,7 +56,7 @@ class _FollowedTeamDialogTitleState extends State<FollowedTeamDialogTitle> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
