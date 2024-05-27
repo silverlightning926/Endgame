@@ -46,20 +46,7 @@ class UpcomingMatchOverviewCard extends StatelessWidget {
             child: Ink(
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  stops: [
-                    0.0,
-                    0.5,
-                    1.0,
-                  ],
-                  colors: [
-                    Color(0xFF7900a9),
-                    Color(0xFF9c00b4),
-                    Color(0xFF7900a9),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                gradient: ColorConstants.matchCardColor,
               ),
               child: MatchTeamTable(
                   teamNumber: teamNumber,
@@ -219,20 +206,7 @@ class RedAllianceTable extends StatelessWidget {
     return Ink(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          stops: [
-            0.0,
-            0.6,
-            1.0,
-          ],
-          colors: [
-            Color.fromARGB(255, 219, 35, 35),
-            Color.fromARGB(255, 241, 93, 105),
-            Color.fromARGB(255, 219, 35, 35),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: ColorConstants.redMatchCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -281,20 +255,7 @@ class BlueAllianceTable extends StatelessWidget {
     return Ink(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          stops: [
-            0.0,
-            0.6,
-            1.0,
-          ],
-          colors: [
-            Color.fromARGB(255, 3, 179, 248),
-            Color.fromARGB(255, 3, 191, 248),
-            Color.fromARGB(255, 3, 179, 248),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: ColorConstants.blueMatchCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

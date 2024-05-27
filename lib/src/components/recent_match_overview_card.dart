@@ -54,20 +54,7 @@ class RecentMatchOverviewCard extends StatelessWidget {
             child: Ink(
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  stops: [
-                    0.0,
-                    0.5,
-                    1.0,
-                  ],
-                  colors: [
-                    Color(0xFF7900a9),
-                    Color(0xFF9c00b4),
-                    Color(0xFF7900a9),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                gradient: ColorConstants.matchCardColor,
               ),
               child: MatchTeamTable(
                 teamNumber: teamNumber,
@@ -151,7 +138,7 @@ class MatchTeamTable extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 5),
-        const Divider(color: Colors.white),
+        const Divider(color: ColorConstants.dialogTextColor),
         const SizedBox(height: 5),
         Text(
           "Recent Match",
@@ -172,7 +159,7 @@ class MatchTeamTable extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        const Divider(color: Colors.white),
+        const Divider(color: ColorConstants.dialogTextColor),
         const SizedBox(height: 5),
         Row(
           children: [
@@ -238,20 +225,7 @@ class RedAllianceTable extends StatelessWidget {
     return Ink(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          stops: [
-            0.0,
-            0.6,
-            1.0,
-          ],
-          colors: [
-            Color.fromARGB(255, 219, 35, 35),
-            Color.fromARGB(255, 241, 93, 105),
-            Color.fromARGB(255, 219, 35, 35),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: ColorConstants.redMatchCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -308,20 +282,7 @@ class BlueAllianceTable extends StatelessWidget {
     return Ink(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          stops: [
-            0.0,
-            0.6,
-            1.0,
-          ],
-          colors: [
-            Color.fromARGB(255, 3, 179, 248),
-            Color.fromARGB(255, 3, 191, 248),
-            Color.fromARGB(255, 3, 179, 248),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: ColorConstants.blueMatchCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -373,7 +334,7 @@ class TeamScore extends StatelessWidget {
     return Ink(
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
-        color: Colors.grey[700],
+        color: ColorConstants.matchCardColorTeamScoreBackground,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Column(
@@ -392,6 +353,7 @@ class TeamScore extends StatelessWidget {
             style: GoogleFonts.roboto(
               fontSize: 16,
               fontWeight: FontWeight.bold,
+              color: ColorConstants.dialogTextColor,
             ),
           ),
         ],

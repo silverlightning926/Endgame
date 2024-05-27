@@ -15,6 +15,56 @@ class ColorConstants {
   static const Color followedTeamCardTeamImageReplacementTextColor =
       Color.fromARGB(255, 196, 194, 194);
 
+  // Match Card Color Constants
+
+  static const LinearGradient matchCardColor = LinearGradient(
+    stops: [
+      0.0,
+      0.5,
+      1.0,
+    ],
+    colors: [
+      Color(0xFF7900a9),
+      Color(0xFF9c00b4),
+      Color(0xFF7900a9),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient redMatchCardColor = LinearGradient(
+    stops: [
+      0.0,
+      0.6,
+      1.0,
+    ],
+    colors: [
+      Color.fromARGB(255, 219, 35, 35),
+      Color.fromARGB(255, 241, 93, 105),
+      Color.fromARGB(255, 219, 35, 35),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const LinearGradient blueMatchCardColor = LinearGradient(
+    stops: [
+      0.0,
+      0.6,
+      1.0,
+    ],
+    colors: [
+      Color.fromARGB(255, 3, 179, 248),
+      Color.fromARGB(255, 3, 191, 248),
+      Color.fromARGB(255, 3, 179, 248),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  static const matchCardColorTeamScoreBackground =
+      Color.fromARGB(162, 97, 97, 97);
+
   // Navigation Color Constants
 
   static const Color scaffoldBackgroundColor = Colors.black;
