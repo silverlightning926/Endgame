@@ -1,4 +1,4 @@
-import 'package:endgame/src/components/upcoming_match_card.dart';
+import 'package:endgame/src/components/upcoming_match_overview_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
