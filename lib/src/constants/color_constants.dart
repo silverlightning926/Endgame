@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
-  static const Color scaffoldBackgroundColor = Colors.black;
+  // Dialog Color Constants
 
   static const Color dialogColor = Color.fromARGB(255, 47, 44, 84);
   static const Color dialogTextColor = Colors.white;
   static const Color dialogButtonColor = Colors.white;
+
+  // Followed Team Card Color Constants
 
   static const Color followedTeamCardFollowButtomColor = Colors.yellow;
   static const Color followedTeamCardTeamImageReplacementBackgroundColor =
@@ -14,6 +16,8 @@ class ColorConstants {
       Color.fromARGB(255, 196, 194, 194);
 
   // Navigation Color Constants
+
+  static const Color scaffoldBackgroundColor = Colors.black;
 
   static const navigationGradient = LinearGradient(
     stops: [
