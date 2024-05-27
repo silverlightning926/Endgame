@@ -8,10 +8,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v4
           
       - name: Setup Flutter Environment
-        uses: subosito/flutter-action@v2.7.1
+        uses: subosito/flutter-action@v2.14.10
         with:
           channel: 'stable'
           architecture: x64
