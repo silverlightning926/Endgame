@@ -36,39 +36,47 @@ class UpcomingMatchOverviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        gradient: //find a gradient that finds in with the theme but is not too distracting and does not blend with other ui elements\
-            const LinearGradient(
-          stops: [
-            0.0,
-            0.5,
-            1.0,
-          ],
-          colors: [
-            Color(0xFF7900a9),
-            Color(0xFF9c00b4),
-            Color(0xFF7900a9),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
+        child: Material(
+          child: InkWell(
+            onTap: () {},
+            child: Ink(
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  stops: [
+                    0.0,
+                    0.5,
+                    1.0,
+                  ],
+                  colors: [
+                    Color(0xFF7900a9),
+                    Color(0xFF9c00b4),
+                    Color(0xFF7900a9),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              child: MatchTeamTable(
+                  teamNumber: teamNumber,
+                  eventName: eventName,
+                  matchDateTime: matchDateTime,
+                  matchNumber: matchNumber,
+                  matchType: matchType,
+                  redTeam1: redTeam1,
+                  redTeam2: redTeam2,
+                  redTeam3: redTeam3,
+                  blueTeam1: blueTeam1,
+                  blueTeam2: blueTeam2,
+                  blueTeam3: blueTeam3),
+            ),
+          ),
+        ),
       ),
-      child: MatchTeamTable(
-          teamNumber: teamNumber,
-          eventName: eventName,
-          matchDateTime: matchDateTime,
-          matchNumber: matchNumber,
-          matchType: matchType,
-          redTeam1: redTeam1,
-          redTeam2: redTeam2,
-          redTeam3: redTeam3,
-          blueTeam1: blueTeam1,
-          blueTeam2: blueTeam2,
-          blueTeam3: blueTeam3),
     );
   }
 }
@@ -208,7 +216,7 @@ class RedAllianceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Ink(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
@@ -270,7 +278,7 @@ class BlueAllianceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Ink(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
