@@ -20,6 +20,11 @@ class ColorConstants {
   static const Color matchCardBackgroundColor =
       Color.fromARGB(255, 90, 43, 123);
 
+  // Live Event Card Color Constants
+
+  static const Color liveEventCardBackgroundColor =
+      Color.fromARGB(255, 63, 36, 81);
+
   static const LinearGradient redMatchCardColor = LinearGradient(
     stops: [
       0.0,
