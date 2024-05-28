@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ColorConstants {
   // Dialog Color Constants
 
-  static const Color dialogColor = Color.fromARGB(255, 27, 18, 34);
+  static const Color dialogColor = Color.fromARGB(255, 41, 27, 51);
   static const Color dialogTextColor = Colors.white;
   static const Color dialogButtonColor = Colors.white;
 
@@ -17,20 +17,8 @@ class ColorConstants {
 
   // Match Card Color Constants
 
-  static const LinearGradient matchCardColor = LinearGradient(
-    stops: [
-      0.0,
-      0.5,
-      1.0,
-    ],
-    colors: [
-      Color(0xFF7900a9),
-      Color(0xFF9c00b4),
-      Color(0xFF7900a9),
-    ],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
+  static const Color matchCardBackgroundColor =
+      Color.fromARGB(255, 90, 43, 123);
 
   static const LinearGradient redMatchCardColor = LinearGradient(
     stops: [

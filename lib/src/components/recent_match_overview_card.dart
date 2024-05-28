@@ -54,7 +54,7 @@ class RecentMatchOverviewCard extends StatelessWidget {
             child: Ink(
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
-                gradient: ColorConstants.matchCardColor,
+                color: ColorConstants.matchCardBackgroundColor,
               ),
               child: MatchTeamTable(
                 teamNumber: teamNumber,
