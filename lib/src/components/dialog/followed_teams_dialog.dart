@@ -69,13 +69,25 @@ class _FollowedTeamsDialogTitleState extends State<FollowedTeamsDialogTitle> {
               color: ColorConstants.dialogTextColor,
             ),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.add,
-              size: 17,
-            ),
-            color: ColorConstants.dialogButtonColor,
-            onPressed: () {},
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.add,
+                  size: 17,
+                ),
+                color: ColorConstants.dialogButtonColor,
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 17,
+                ),
+                color: ColorConstants.dialogButtonColor,
+                onPressed: () {},
+              ),
+            ],
           ),
         ],
       ),
