@@ -20,25 +20,7 @@ class LiveEventDialog extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Live Events",
-                style: GoogleFonts.roboto(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: ColorConstants.dialogTextColor,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.keyboard_arrow_down),
-                color: ColorConstants.dialogButtonColor,
-                iconSize: 17,
-              ),
-            ],
-          ),
+          const LiveEventDialogTitle(),
           GridView(
             padding: const EdgeInsets.only(top: 10),
             physics: const NeverScrollableScrollPhysics(),
@@ -86,6 +68,35 @@ class LiveEventDialog extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class LiveEventDialogTitle extends StatelessWidget {
+  const LiveEventDialogTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "Live Events",
+          style: GoogleFonts.roboto(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: ColorConstants.dialogTextColor,
+          ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.keyboard_arrow_down),
+          color: ColorConstants.dialogButtonColor,
+          iconSize: 17,
+        ),
+      ],
     );
   }
 }

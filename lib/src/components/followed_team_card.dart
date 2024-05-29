@@ -18,49 +18,57 @@ class FollowedTeamCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              teamImage != null
-                  ? Image.network(
-                      teamImage!,
-                      width: 65,
-                      height: 65,
-                      fit: BoxFit.cover,
-                    )
-                  : TeamImageReplacement(teamNumber: teamNumber),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    teamName,
-                    style: GoogleFonts.roboto(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: ColorConstants.dialogTextColor,
-                    ),
-                  ),
-                  Text(
-                    teamNumber,
-                    style: GoogleFonts.roboto(
-                      fontSize: 15,
-                      color: ColorConstants.dialogTextColor,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+      child: Container(
+        decoration: const BoxDecoration(
+          color: ColorConstants.dialogColor,
+          borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(10),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.star),
-            color: ColorConstants.followedTeamCardFollowButtomColor,
-          ),
-        ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                teamImage != null
+                    ? Image.network(
+                        teamImage!,
+                        width: 65,
+                        height: 65,
+                        fit: BoxFit.cover,
+                      )
+                    : TeamImageReplacement(teamNumber: teamNumber),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      teamName,
+                      style: GoogleFonts.roboto(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: ColorConstants.dialogTextColor,
+                      ),
+                    ),
+                    Text(
+                      teamNumber,
+                      style: GoogleFonts.roboto(
+                        fontSize: 15,
+                        color: ColorConstants.dialogTextColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.star),
+              color: ColorConstants.followedTeamCardFollowButtomColor,
+            ),
+          ],
+        ),
       ),
     );
   }
