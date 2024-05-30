@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80.0 + amountOfPadding),
+          preferredSize: Size.fromHeight(50.0 + amountOfPadding),
           child: AppBar(
             clipBehavior: Clip.none,
             flexibleSpace: Container(
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             title: Padding(
-              padding: EdgeInsets.only(top: 30.0 + amountOfPadding),
+              padding: EdgeInsets.only(top: amountOfPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 textBaseline: TextBaseline.alphabetic,
