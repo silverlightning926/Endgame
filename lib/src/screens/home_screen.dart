@@ -32,61 +32,76 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(15),
-              ),
-              gradient: ColorConstants.navigationGradient,
-            ),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              tooltip: "Search",
-            ),
-          ],
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(15),
-            ),
-          ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              const Text(
-                "ENDGAME",
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 4.0,
-                  top: 7.0,
+    double amountOfPadding = MediaQuery.of(context).padding.top;
+
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80.0 + amountOfPadding),
+          child: AppBar(
+            clipBehavior: Clip.none,
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                gradient: ColorConstants.navigationGradient,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(15),
                 ),
-                child: Text(
-                  "Powered by The Blue Alliance & Statbotics",
-                  style: GoogleFonts.robotoCondensed(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w300,
-                    color: ColorConstants.secondaryNavigationColor,
-                  ),
+              ),
+            ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(top: amountOfPadding, right: 10.0),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.search),
+                  tooltip: "Search",
                 ),
               ),
             ],
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(15),
+              ),
+            ),
+            title: Padding(
+              padding: EdgeInsets.only(top: 30.0 + amountOfPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  const Text(
+                    "ENDGAME",
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 4.0,
+                      top: 7.0,
+                    ),
+                    child: Text(
+                      "Powered by The Blue Alliance & Statbotics",
+                      style: GoogleFonts.robotoCondensed(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w300,
+                        color: ColorConstants.secondaryNavigationColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
+        bottomNavigationBar: RoundedBottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: _onTabSelected,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(7, 10, 7, 0),
+          child: navigationTabs[_currentIndex],
+        ),
       ),
-      bottomNavigationBar: RoundedBottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabSelected,
-      ),
-      body: navigationTabs[_currentIndex],
     );
   }
 }
