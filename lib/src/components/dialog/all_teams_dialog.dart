@@ -1,4 +1,4 @@
-import 'package:endgame/src/components/team_card.dart';
+import 'package:endgame/src/components/cards/team_card.dart';
 import 'package:flutter/material.dart';
 
 class AllTeamDialog extends StatelessWidget {

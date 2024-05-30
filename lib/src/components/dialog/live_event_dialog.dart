@@ -1,4 +1,4 @@
-import 'package:endgame/src/components/live_event_card.dart';
+import 'package:endgame/src/components/cards/live_event_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

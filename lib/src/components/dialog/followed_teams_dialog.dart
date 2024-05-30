@@ -1,4 +1,4 @@
-import 'package:endgame/src/components/followed_team_card.dart';
+import 'package:endgame/src/components/cards/followed_team_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 

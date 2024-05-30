@@ -1,5 +1,5 @@
-import 'package:endgame/src/components/recent_match_overview_card.dart';
-import 'package:endgame/src/components/upcoming_match_overview_card.dart';
+import 'package:endgame/src/components/cards/recent_match_overview_card.dart';
+import 'package:endgame/src/components/cards/upcoming_match_overview_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
