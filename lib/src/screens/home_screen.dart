@@ -32,8 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double amountOfPadding = MediaQuery.of(context).padding.top;
-
     return SafeArea(
       top: false,
       child: Scaffold(
