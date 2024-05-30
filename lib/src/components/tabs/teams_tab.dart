@@ -1,3 +1,5 @@
+import 'package:endgame/src/components/dialog/all_teams_dialog.dart';
+import 'package:endgame/src/components/dialog/followed_teams_dialog.dart';
 import 'package:flutter/material.dart';
 
 class TeamsTab extends StatelessWidget {
@@ -5,8 +7,11 @@ class TeamsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Teams"),
+    return ListView(
+      children: const [
+        FollowedTeamsDialog(),
+        AllTeamDialog(),
+      ],
     );
   }
 }
