@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.0 + amountOfPadding),
+          preferredSize: const Size.fromHeight(70.0),
           child: AppBar(
             clipBehavior: Clip.none,
             flexibleSpace: Container(
@@ -51,13 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             actions: [
-              Padding(
-                padding: EdgeInsets.only(top: amountOfPadding, right: 10.0),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                  tooltip: "Search",
-                ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.search),
+                tooltip: "Search",
               ),
             ],
             shape: const RoundedRectangleBorder(
@@ -65,31 +62,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottom: Radius.circular(15),
               ),
             ),
-            title: Padding(
-              padding: EdgeInsets.only(top: amountOfPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  const Text(
-                    "ENDGAME",
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                const Text(
+                  "ENDGAME",
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 4.0,
+                    top: 7.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 4.0,
-                      top: 7.0,
-                    ),
-                    child: Text(
-                      "Powered by The Blue Alliance & Statbotics",
-                      style: GoogleFonts.robotoCondensed(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w300,
-                        color: ColorConstants.secondaryNavigationColor,
-                      ),
+                  child: Text(
+                    "Powered by The Blue Alliance & Statbotics",
+                    style: GoogleFonts.robotoCondensed(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w300,
+                      color: ColorConstants.secondaryNavigationColor,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
