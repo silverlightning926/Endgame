@@ -3,13 +3,20 @@ import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
 import 'package:flutter/material.dart';
 
-class FollowedTeamsDialog extends StatelessWidget {
+class FollowedTeamsDialog extends StatefulWidget {
   const FollowedTeamsDialog({
     super.key,
     required this.followedTeams,
   });
 
   final List<TBATeam> followedTeams;
+
+  @override
+  State<FollowedTeamsDialog> createState() => _FollowedTeamsDialogState();
+}
+
+class _FollowedTeamsDialogState extends State<FollowedTeamsDialog> {
+  bool collapsed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +30,27 @@ class FollowedTeamsDialog extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const FollowedTeamsDialogTitle(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: followedTeams.isEmpty
-                ? [
-                    const NoTeamsFollowedDialog(),
-                  ]
-                : followedTeams.map((team) {
-                    return FollowedTeamCard(team: team);
-                  }).toList(),
-          )
+          FollowedTeamsDialogTitle(
+            collapsed: collapsed,
+            onCollapsePressed: () {
+              setState(() {
+                collapsed = !collapsed;
+              });
+            },
+          ),
+          collapsed
+              ? const SizedBox()
+              : Column(
+                  children: [
+                    if (widget.followedTeams.isEmpty)
+                      const NoTeamsFollowedDialog()
+                    else
+                      for (final team in widget.followedTeams)
+                        FollowedTeamCard(
+                          team: team,
+                        ),
+                  ],
+                ),
         ],
       ),
     );
@@ -48,6 +65,7 @@ class NoTeamsFollowedDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 100,
       decoration: BoxDecoration(
         color: ColorConstants.dialogColor,
         borderRadius: BorderRadius.circular(10),
@@ -71,17 +89,16 @@ class NoTeamsFollowedDialog extends StatelessWidget {
   }
 }
 
-class FollowedTeamsDialogTitle extends StatefulWidget {
+class FollowedTeamsDialogTitle extends StatelessWidget {
   const FollowedTeamsDialogTitle({
     super.key,
+    required this.onCollapsePressed,
+    required this.collapsed,
   });
 
-  @override
-  State<FollowedTeamsDialogTitle> createState() =>
-      _FollowedTeamsDialogTitleState();
-}
+  final Function() onCollapsePressed;
+  final bool collapsed;
 
-class _FollowedTeamsDialogTitleState extends State<FollowedTeamsDialogTitle> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -109,12 +126,14 @@ class _FollowedTeamsDialogTitleState extends State<FollowedTeamsDialogTitle> {
                 onPressed: () {},
               ),
               IconButton(
-                icon: const Icon(
-                  Icons.keyboard_arrow_down,
+                icon: Icon(
+                  collapsed
+                      ? Icons.keyboard_arrow_down
+                      : Icons.keyboard_arrow_up,
                   size: 17,
                 ),
                 color: ColorConstants.dialogButtonColor,
-                onPressed: () {},
+                onPressed: onCollapsePressed,
               ),
             ],
           ),

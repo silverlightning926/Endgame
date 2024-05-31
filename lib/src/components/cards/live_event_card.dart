@@ -1,114 +1,112 @@
+import 'package:date_time_format/date_time_format.dart';
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/serialized/tba/tba_event.dart';
 import 'package:flutter/material.dart';
 
 class LiveEventCard extends StatelessWidget {
   const LiveEventCard({
     super.key,
-    required this.eventName,
-    required this.startDate,
-    required this.endDate,
-    required this.eventLocation,
-    required this.matchNumber,
-    required this.matchType,
-    this.matchStreamUrl,
-    required this.eventDistrict,
+    required this.event,
   });
 
-  final String eventName;
-  final String eventDistrict;
-  final DateTime startDate;
-  final DateTime endDate;
-  final String eventLocation;
-  final String matchNumber;
-  final String matchType;
-  final Uri? matchStreamUrl;
+  final TBAEvent event;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: const BorderRadius.all(Radius.circular(15)),
       child: Material(
+        color: ColorConstants.dialogColor,
         child: InkWell(
           onTap: () {},
           child: Ink(
-            decoration: const BoxDecoration(
-              color: ColorConstants.liveEventCardBackgroundColor,
-            ),
             padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  eventName,
+                  event.name ?? "",
                   style: const TextStyle(
-                    color: ColorConstants.dialogTextColor,
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 2,
+                const SizedBox(height: 5),
+                Text(
+                  "${event.city}, ${event.stateProv}, ${event.country}",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: ColorConstants.dialogTextColor,
                   ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                   decoration: BoxDecoration(
-                    color: ColorConstants.dialogButtonColor,
+                    color: ColorConstants.dialogTextColor,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    eventDistrict,
+                    "${DateTimeFormat.format(
+                      event.startDate!,
+                      format: 'M j',
+                    )} - ${DateTimeFormat.format(
+                      event.endDate!,
+                      format: 'M j',
+                    )}, ${event.year}",
                     style: const TextStyle(
-                      color: ColorConstants.liveEventCardBackgroundColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
+                      fontSize: 14,
+                      color: ColorConstants.dialogColor,
                     ),
                   ),
                 ),
-                Text(
-                  "${startDate.month}/${startDate.day} - ${endDate.month}/${endDate.day}, ${startDate.year}",
-                  style: const TextStyle(
-                    color: ColorConstants.dialogTextColor,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  eventLocation,
-                  style: const TextStyle(
-                    color: ColorConstants.dialogTextColor,
-                    fontSize: 15,
-                  ),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Ink(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: ColorConstants.dialogButtonColor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        "$matchType $matchNumber",
-                        style: const TextStyle(
-                          color: ColorConstants.liveEventCardBackgroundColor,
-                          fontSize: 15,
-                        ),
-                      ),
+                const SizedBox(height: 5),
+                if (event.webcasts.isNotEmpty)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return SimpleDialog(
+                              contentPadding: const EdgeInsets.all(10),
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'Live Streams',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                for (final webcast in event.webcasts)
+                                  ListTile(
+                                    leading: const Icon(Icons.tv),
+                                    title: Text(webcast.channel ?? ""),
+                                    subtitle: Text(webcast.type ?? ""),
+                                    onTap: () {},
+                                  ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Close'),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.play_arrow_outlined),
                     ),
-                    if (matchStreamUrl != null)
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.play_arrow_outlined),
-                        color: ColorConstants.dialogButtonColor,
-                      ),
-                  ],
-                ),
+                  ),
               ],
             ),
           ),

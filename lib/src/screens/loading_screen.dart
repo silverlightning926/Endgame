@@ -1,5 +1,6 @@
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/data/home_screen_data.dart';
+import 'package:endgame/src/serialized/tba/tba_event.dart';
 import 'package:endgame/src/serialized/tba/tba_match.dart';
 import 'package:endgame/src/serialized/tba/tba_status.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
@@ -40,8 +41,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
       followedTeamsMatches[team] = matches;
     }
 
+    List<TBAEvent> events = await TBAAPIService.getEventsForYear(
+      status.currentSeason ?? DateTime.now().year,
+    );
+
+    List<District> districts = await TBAAPIService.getDistrictsForYear(
+      status.currentSeason ?? DateTime.now().year,
+    );
+
     return HomeScreenData(
+      status: status,
       followedTeamMatches: followedTeamsMatches,
+      events: events,
+      districts: districts,
     );
   }
 

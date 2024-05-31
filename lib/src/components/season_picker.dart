@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 class SeasonPicker extends StatelessWidget {
   const SeasonPicker({
     super.key,
-    required this.seasons,
+    required this.currentYear,
   });
 
-  final List<String> seasons;
+  final int currentYear;
 
   @override
   Widget build(BuildContext context) {
+    List<String> years = List.generate(
+      currentYear - 1991,
+      (index) => (currentYear - index).toString(),
+    );
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
@@ -19,19 +24,13 @@ class SeasonPicker extends StatelessWidget {
       ),
       margin: const EdgeInsets.only(bottom: 10),
       child: DropdownButton(
+        value: years[0],
         underline: const SizedBox(),
         isExpanded: true,
-        value: "2024",
-        items: seasons.map((String value) {
+        items: years.map((String value) {
           return DropdownMenuItem(
             value: value,
-            child: Text(
-              value,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: Text(value),
           );
         }).toList(),
         onChanged: (String? value) {},

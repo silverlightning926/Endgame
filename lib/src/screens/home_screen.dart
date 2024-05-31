@@ -34,8 +34,18 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> navigationTabs = [
       HomeTab(
         followedTeamMatches: widget.homeScreenData.followedTeamMatches,
+        liveEvents: widget.homeScreenData.events.where((e) {
+          final now = DateTime.now();
+          return e.startDate!.isBefore(now) && e.endDate!.isAfter(now);
+        }).toList()
+          ..sort((a, b) => a.startDate!.compareTo(b.startDate!)),
       ),
-      const EventsTab(),
+      EventsTab(
+        currentYear:
+            widget.homeScreenData.status.currentSeason ?? DateTime.now().year,
+        districts: widget.homeScreenData.districts,
+        events: widget.homeScreenData.events,
+      ),
       TeamsTab(
         followedTeams: widget.homeScreenData.followedTeamMatches.keys.toList(),
       ),

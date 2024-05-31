@@ -27,10 +27,12 @@ class FollowedTeamCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TeamImageReplacement(teamNumber: "${team.teamNumber}"),
                 const SizedBox(width: 10),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
