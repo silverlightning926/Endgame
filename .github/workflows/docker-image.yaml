@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Generate api_secret.dart
-      run: echo "class ApiSecret { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/services/api_secret.dart
+      run: echo "class ApiSecrets { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/services/api_secret.dart
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t endgame:$(date +%s)
