@@ -10,7 +10,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Generate api_secret.dart
+      - name: Generate Secrets File
         run: echo "class ApiSecrets { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/services/api_secrets.dart
           
       - name: Setup Flutter Environment
