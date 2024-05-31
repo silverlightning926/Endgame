@@ -44,3 +44,6 @@ app.*.map.json
 
 # Idea
 /.idea
+
+# API keys
+api_secrets.dart

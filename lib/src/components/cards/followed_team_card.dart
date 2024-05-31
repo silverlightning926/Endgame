@@ -1,17 +1,14 @@
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/serialized/tba/tba_team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FollowedTeamCard extends StatelessWidget {
-  final String teamName;
-  final String teamNumber;
-  final String? teamImage;
+  final TBATeam team;
 
   const FollowedTeamCard({
     super.key,
-    required this.teamName,
-    required this.teamNumber,
-    this.teamImage,
+    required this.team,
   });
 
   @override
@@ -31,20 +28,13 @@ class FollowedTeamCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                teamImage != null
-                    ? Image.network(
-                        teamImage!,
-                        width: 65,
-                        height: 65,
-                        fit: BoxFit.cover,
-                      )
-                    : TeamImageReplacement(teamNumber: teamNumber),
+                TeamImageReplacement(teamNumber: "${team.teamNumber}"),
                 const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      teamName,
+                      team.name ?? "",
                       style: GoogleFonts.roboto(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -52,7 +42,7 @@ class FollowedTeamCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      teamNumber,
+                      "${team.teamNumber}",
                       style: GoogleFonts.roboto(
                         fontSize: 15,
                         color: ColorConstants.dialogTextColor,

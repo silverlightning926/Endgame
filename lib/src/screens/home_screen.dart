@@ -4,11 +4,17 @@ import 'package:endgame/src/components/tabs/home_tab.dart';
 import 'package:endgame/src/components/tabs/settings_tab.dart';
 import 'package:endgame/src/components/tabs/teams_tab.dart';
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/data/home_screen_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    required this.homeScreenData,
+  });
+
+  final HomeScreenData homeScreenData;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,13 +22,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-
-  static const List<Widget> navigationTabs = [
-    HomeTab(),
-    EventsTab(),
-    TeamsTab(),
-    SettingsTab(),
-  ];
 
   void _onTabSelected(int index) {
     setState(() {
@@ -32,6 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> navigationTabs = [
+      HomeTab(
+        followedTeamMatches: widget.homeScreenData.followedTeamMatches,
+      ),
+      const EventsTab(),
+      TeamsTab(
+        followedTeams: widget.homeScreenData.followedTeamMatches.keys.toList(),
+      ),
+      const SettingsTab(),
+    ];
+
     return SafeArea(
       top: false,
       child: Scaffold(
