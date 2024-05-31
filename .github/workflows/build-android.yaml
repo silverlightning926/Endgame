@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Generate api_secret.dart
+        run: echo "class ApiSecret { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/services/api_secret.dart
         
       - name: Setup Java Environment        
         uses: actions/setup-java@v4.2.1
@@ -20,7 +23,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          
+
       - name: Install Dependencies
         run: flutter pub get
         
