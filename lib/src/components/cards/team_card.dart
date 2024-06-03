@@ -1,10 +1,14 @@
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/serialized/tba/tba_team.dart';
 import 'package:flutter/material.dart';
 
 class TeamCard extends StatelessWidget {
   const TeamCard({
     super.key,
+    required this.team,
   });
+
+  final TBATeam team;
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +25,34 @@ class TeamCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Stealth Robotics",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: 300,
+                        child: Text(
+                          team.nickname ?? "",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Text(
-                        "FRC 4089",
-                        style: TextStyle(
+                        team.teamNumber.toString(),
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        "Duvall, WA",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
+                      SizedBox(
+                        width: 300,
+                        child: Text(
+                          "${team.city}, ${team.stateProv}, ${team.country}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],

@@ -3,19 +3,41 @@ import 'package:endgame/src/components/dialog/followed_teams_dialog.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
 import 'package:flutter/material.dart';
 
-class TeamsTab extends StatelessWidget {
-  const TeamsTab({super.key, required this.followedTeams});
+class TeamsTab extends StatefulWidget {
+  const TeamsTab({
+    super.key,
+    required this.followedTeams,
+    required this.allTeams,
+  });
 
   final List<TBATeam> followedTeams;
+  final List<TBATeam> allTeams;
+
+  @override
+  State<TeamsTab> createState() => _TeamsTabState();
+}
+
+class _TeamsTabState extends State<TeamsTab> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
+      controller: _scrollController,
       children: [
         FollowedTeamsDialog(
-          followedTeams: followedTeams,
+          followedTeams: widget.followedTeams,
         ),
-        const AllTeamDialog(),
+        AllTeamDialog(
+          allTeams: widget.allTeams,
+          scrollController: _scrollController,
+        ),
       ],
     );
   }

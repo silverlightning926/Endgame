@@ -1,6 +1,5 @@
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/data/home_screen_data.dart';
-import 'package:endgame/src/serialized/tba/tba_event.dart';
 import 'package:endgame/src/serialized/tba/tba_match.dart';
 import 'package:endgame/src/serialized/tba/tba_status.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
@@ -21,13 +20,13 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   _loadData() async {
-    List response = await Future.wait([
+    List followedTeamsRequestFuture = await Future.wait([
       TBAAPIService.getStatus(),
       StorageService.getFollowedTeams(),
     ]);
 
-    TBAStatus status = response[0];
-    List<String> followedTeams = response[1];
+    TBAStatus status = followedTeamsRequestFuture[0];
+    List<String> followedTeams = followedTeamsRequestFuture[1];
 
     Map<TBATeam, List<TBAMatch>> followedTeamsMatches = {};
 
@@ -41,19 +40,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
       followedTeamsMatches[team] = matches;
     }
 
-    List<TBAEvent> events = await TBAAPIService.getEventsForYear(
-      status.currentSeason ?? DateTime.now().year,
-    );
-
-    List<District> districts = await TBAAPIService.getDistrictsForYear(
-      status.currentSeason ?? DateTime.now().year,
-    );
+    List otherDataRequestFuture = await Future.wait({
+      TBAAPIService.getEventsForYear(
+        status.currentSeason ?? DateTime.now().year,
+      ),
+      TBAAPIService.getDistrictsForYear(
+        status.currentSeason ?? DateTime.now().year,
+      ),
+      TBAAPIService.getTeams(0),
+    });
 
     return HomeScreenData(
       status: status,
       followedTeamMatches: followedTeamsMatches,
-      events: events,
-      districts: districts,
+      events: otherDataRequestFuture[0],
+      districts: otherDataRequestFuture[1],
+      teams: otherDataRequestFuture[2],
     );
   }
 

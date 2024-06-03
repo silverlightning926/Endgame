@@ -8,11 +8,13 @@ class HomeScreenData {
   final Map<TBATeam, List<TBAMatch>> followedTeamMatches;
   final List<TBAEvent> events;
   final List<District> districts;
+  final List<TBATeam> teams;
 
   HomeScreenData({
     required this.status,
     required this.followedTeamMatches,
     required this.events,
     required this.districts,
+    required this.teams,
   });
 }

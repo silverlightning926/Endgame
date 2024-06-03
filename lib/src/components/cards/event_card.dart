@@ -44,16 +44,21 @@ class EventCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 5),
-                      Text(
-                        "${event.city ?? ""}, ${event.stateProv ?? ""}",
-                        style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
+                      SizedBox(
+                        width: 200,
+                        child: Text(
+                          "${event.city ?? ""}, ${event.stateProv ?? ""}",
+                          maxLines: 2,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   Container(
+                    width: 100,
                     margin: const EdgeInsets.only(left: 10),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 5,
@@ -64,10 +69,13 @@ class EventCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
-                      DateTimeFormat.format(
+                      "${DateTimeFormat.format(
                         event.startDate!,
-                        format: 'F j,\nY',
-                      ),
+                        format: 'M j',
+                      )} - ${DateTimeFormat.format(
+                        event.endDate!,
+                        format: 'M j',
+                      )}, ${event.year}",
                       softWrap: true,
                       textAlign: TextAlign.right,
                       style: const TextStyle(

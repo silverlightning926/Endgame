@@ -31,7 +31,7 @@ class TBAAPIService {
   }
 
   static Future<TBATeam> getTeam(String teamKey) async {
-    final String url = '$_baseUrl/team/$teamKey/simple';
+    final String url = '$_baseUrl/team/$teamKey';
     final http.Response response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
@@ -99,6 +99,23 @@ class TBAAPIService {
       return events.map((dynamic event) => TBAEvent.fromJson(event)).toList();
     } else {
       throw const HttpException('Failed to load events');
+    }
+  }
+
+  static Future<List<TBATeam>> getTeams(int pageNum) async {
+    final String url = '$_baseUrl/teams/$pageNum';
+    final http.Response response = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        'X-TBA-Auth-Key': ApiSecrets.tbaKey,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> teams = jsonDecode(response.body);
+      return teams.map((dynamic team) => TBATeam.fromJson(team)).toList();
+    } else {
+      throw const HttpException('Failed to load teams');
     }
   }
 }
