@@ -117,6 +117,7 @@ class FollowedTeamsDialogTitle extends StatelessWidget {
           ),
           Row(
             children: [
+              // TODO: Implement Add Followed Team
               IconButton(
                 icon: const Icon(
                   Icons.add,

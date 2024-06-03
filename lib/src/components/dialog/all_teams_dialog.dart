@@ -24,6 +24,8 @@ class _AllTeamDialogState extends State<AllTeamDialog> {
 
   @override
   void initState() {
+    // TODO: Improve Team ListView Performance
+
     super.initState();
     _allTeams = widget.allTeams;
     widget.scrollController.addListener(_scrollListener);

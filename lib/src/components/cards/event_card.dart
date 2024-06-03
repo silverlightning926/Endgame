@@ -20,6 +20,7 @@ class EventCard extends StatelessWidget {
         child: Material(
           color: ColorConstants.dialogColor,
           child: InkWell(
+            // TODO: Implement Event Page
             onTap: () {},
             child: Ink(
               padding: const EdgeInsets.fromLTRB(10, 10, 20, 10),

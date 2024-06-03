@@ -19,6 +19,7 @@ class TeamCard extends StatelessWidget {
         child: Material(
           color: ColorConstants.dialogColor,
           child: InkWell(
+            // TODO: Implement Team Page
             onTap: () {},
             child: Ink(
               padding: const EdgeInsets.all(10),
@@ -57,6 +58,7 @@ class TeamCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  // TODO: Implement Follow Button
                   IconButton(
                     icon: const Icon(Icons.star_border),
                     onPressed: () {},

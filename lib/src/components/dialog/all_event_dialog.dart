@@ -32,6 +32,8 @@ class _AllEventsDialogState extends State<AllEventsDialog> {
 
   @override
   void initState() {
+    // TODO: Fix Regional Events Not Appearing
+
     widget.districts.sort((a, b) => a.displayName!.compareTo(b.displayName!));
 
     seasonDivision = widget.events
@@ -54,9 +56,11 @@ class _AllEventsDialogState extends State<AllEventsDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AllEventsDialogTitle(),
+        // TODO: Implement SeasonPicker
         SeasonPicker(
           currentYear: widget.currentYear,
         ),
+        // TODO: Implement SeasonDivisionPicker Filtering
         SeasonDivisionPicker(
           seasonDivision: seasonDivision,
           currentSeasonDivisionIndex: 0,

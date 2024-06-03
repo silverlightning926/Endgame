@@ -18,6 +18,7 @@ class LiveEventCard extends StatelessWidget {
       child: Material(
         color: ColorConstants.dialogColor,
         child: InkWell(
+          // TODO: Implement Event Page
           onTap: () {},
           child: Ink(
             padding: const EdgeInsets.all(10),
@@ -88,6 +89,7 @@ class LiveEventCard extends StatelessWidget {
                                     leading: const Icon(Icons.tv),
                                     title: Text(webcast.channel ?? ""),
                                     subtitle: Text(webcast.type ?? ""),
+                                    // TODO: Implement Webcast
                                     onTap: () {},
                                   ),
                                 Padding(

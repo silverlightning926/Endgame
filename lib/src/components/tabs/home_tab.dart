@@ -22,10 +22,12 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        // TODO: Implement AnnouncementDialog
         const AnnouncementDialog(
           announcementText:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget nunc nec nunc ultricies ultricies.",
         ),
+        // TODO: Implement FollowedActivityDialog
         const FollowedActivityDialog(),
         FollowedTeamsDialog(
           followedTeams: followedTeamMatches.keys.toList(),
