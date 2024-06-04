@@ -13,17 +13,17 @@ jobs:
       - name: Generate Secrets File
         run: echo "class ApiSecrets { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/services/api_secrets.dart
 
-      - name: Generate Build Runner
-        run: dart run build_runner build --delete-conflicting-outputs
-
       - name: Setup Flutter Environment
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           architecture: x64
-          
+
+      - name: Generate Build Runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Install Dependencies
         run: flutter pub get
-        
+
       - name: Build IOS Release
         run: flutter build ios --release --no-codesign
