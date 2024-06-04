@@ -13,10 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
-    - name: Generate Secrets File
-      run: echo "class ApiSecrets { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/services/api_secrets.dart
+    - name: Set TBA_KEY environment variable
+      env:
+        TBA_KEY: ${{ secrets.TBA_KEY }}
+      run: echo "::set-env name=TBA_KEY::${{ secrets.TBA_KEY }}"
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t endgame:$(date +%s)

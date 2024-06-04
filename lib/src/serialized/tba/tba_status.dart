@@ -1,72 +1,30 @@
-class TBAStatus {
-  TBAStatus({
-    required this.android,
-    required this.currentSeason,
-    required this.downEvents,
-    required this.ios,
-    required this.isDatafeedDown,
-    required this.maxSeason,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final AppVersion? android;
-  final int? currentSeason;
-  final List<dynamic> downEvents;
-  final AppVersion? ios;
-  final bool? isDatafeedDown;
-  final int? maxSeason;
+part 'tba_status.freezed.dart';
+part 'tba_status.g.dart';
 
-  factory TBAStatus.fromJson(Map<String, dynamic> json) {
-    return TBAStatus(
-      android:
-          json["android"] == null ? null : AppVersion.fromJson(json["android"]),
-      currentSeason: json["current_season"],
-      downEvents: json["down_events"] == null
-          ? []
-          : List<dynamic>.from(json["down_events"]!.map((x) => x)),
-      ios: json["ios"] == null ? null : AppVersion.fromJson(json["ios"]),
-      isDatafeedDown: json["is_datafeed_down"],
-      maxSeason: json["max_season"],
-    );
-  }
+@freezed
+class TBAStatus with _$TBAStatus {
+  factory TBAStatus({
+    required AppVersion? android,
+    required int? currentSeason,
+    required List<dynamic> downEvents,
+    required AppVersion? ios,
+    required bool? isDatafeedDown,
+    required int? maxSeason,
+  }) = _TBAStatus;
 
-  Map<String, dynamic> toJson() => {
-        "android": android?.toJson(),
-        "current_season": currentSeason,
-        "down_events": downEvents.map((x) => x).toList(),
-        "ios": ios?.toJson(),
-        "is_datafeed_down": isDatafeedDown,
-        "max_season": maxSeason,
-      };
-
-  @override
-  String toString() {
-    return "$android, $currentSeason, $downEvents, $ios, $isDatafeedDown, $maxSeason, ";
-  }
+  factory TBAStatus.fromJson(Map<String, dynamic> json) =>
+      _$TBAStatusFromJson(json);
 }
 
-class AppVersion {
-  AppVersion({
-    required this.latestAppVersion,
-    required this.minAppVersion,
-  });
+@freezed
+class AppVersion with _$AppVersion {
+  factory AppVersion({
+    required int? latestAppVersion,
+    required int? minAppVersion,
+  }) = _AppVersion;
 
-  final int? latestAppVersion;
-  final int? minAppVersion;
-
-  factory AppVersion.fromJson(Map<String, dynamic> json) {
-    return AppVersion(
-      latestAppVersion: json["latest_app_version"],
-      minAppVersion: json["min_app_version"],
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        "latest_app_version": latestAppVersion,
-        "min_app_version": minAppVersion,
-      };
-
-  @override
-  String toString() {
-    return "$latestAppVersion, $minAppVersion, ";
-  }
+  factory AppVersion.fromJson(Map<String, dynamic> json) =>
+      _$AppVersionFromJson(json);
 }

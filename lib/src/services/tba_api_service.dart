@@ -1,4 +1,3 @@
-//get tba key from api_secrets.dart
 import 'dart:convert';
 import 'dart:io';
 

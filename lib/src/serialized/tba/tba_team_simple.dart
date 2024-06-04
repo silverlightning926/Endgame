@@ -1,46 +1,20 @@
-class TBATeamSimple {
-  TBATeamSimple({
-    required this.key,
-    required this.teamNumber,
-    required this.nickname,
-    required this.name,
-    required this.city,
-    required this.stateProv,
-    required this.country,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String? key;
-  final int? teamNumber;
-  final String? nickname;
-  final String? name;
-  final String? city;
-  final String? stateProv;
-  final String? country;
+part 'tba_team_simple.freezed.dart';
+part 'tba_team_simple.g.dart';
 
-  factory TBATeamSimple.fromJson(Map<String, dynamic> json) {
-    return TBATeamSimple(
-      key: json["key"],
-      teamNumber: json["team_number"],
-      nickname: json["nickname"],
-      name: json["name"],
-      city: json["city"],
-      stateProv: json["state_prov"],
-      country: json["country"],
-    );
-  }
+@freezed
+class TBATeamSimple with _$TBATeamSimple {
+  factory TBATeamSimple({
+    required String? key,
+    required int? teamNumber,
+    required String? nickname,
+    required String? name,
+    required String? city,
+    required String? stateProv,
+    required String? country,
+  }) = _TBATeamSimple;
 
-  Map<String, dynamic> toJson() => {
-        "key": key,
-        "team_number": teamNumber,
-        "nickname": nickname,
-        "name": name,
-        "city": city,
-        "state_prov": stateProv,
-        "country": country,
-      };
-
-  @override
-  String toString() {
-    return "$key, $teamNumber, $nickname, $name, $city, $stateProv, $country, ";
-  }
+  factory TBATeamSimple.fromJson(Map<String, dynamic> json) =>
+      _$TBATeamSimpleFromJson(json);
 }

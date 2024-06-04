@@ -15,6 +15,10 @@ RUN apt-get update && \
 WORKDIR /app
 COPY . .
 
+RUN echo "class ApiSecrets { static const tbaKey = '${env:TBA_KEY}'; }" > lib/src/services/api_secrets.dart
+
+RUN dart run build_runner build --delete-conflicting-outputs
+
 RUN flutter config --no-enable-web --no-enable-macos-desktop --no-enable-linux-desktop --no-enable-windows-desktop
 
 RUN flutter config --enable-android --enable-ios
