@@ -1,5 +1,5 @@
 import 'package:endgame/src/components/cards/team_card.dart';
-import 'package:endgame/src/serialized/tba/tba_team.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:endgame/src/services/tba_api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,7 @@ class AllTeamDialog extends StatefulWidget {
     required this.scrollController,
   });
 
-  final List<TBATeam> allTeams;
+  final List<TBATeamSimple> allTeams;
   final ScrollController scrollController;
 
   @override
@@ -18,7 +18,7 @@ class AllTeamDialog extends StatefulWidget {
 }
 
 class _AllTeamDialogState extends State<AllTeamDialog> {
-  List<TBATeam> _allTeams = [];
+  List<TBATeamSimple> _allTeams = [];
   bool _isLoading = false;
   int _currentPage = 1;
 
@@ -51,7 +51,7 @@ class _AllTeamDialogState extends State<AllTeamDialog> {
     setState(() {
       _isLoading = true;
     });
-    List<TBATeam> newTeams = await TBAAPIService.getTeams(nextPage);
+    List<TBATeamSimple> newTeams = await TBAAPIService.getTeamsSimple(nextPage);
     setState(() {
       _allTeams.addAll(newTeams);
       _currentPage = nextPage;

@@ -1,6 +1,6 @@
 import 'package:endgame/src/components/dialog/all_teams_dialog.dart';
 import 'package:endgame/src/components/dialog/followed_teams_dialog.dart';
-import 'package:endgame/src/serialized/tba/tba_team.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:flutter/material.dart';
 
 class TeamsTab extends StatefulWidget {
@@ -10,8 +10,8 @@ class TeamsTab extends StatefulWidget {
     required this.allTeams,
   });
 
-  final List<TBATeam> followedTeams;
-  final List<TBATeam> allTeams;
+  final List<TBATeamSimple> followedTeams;
+  final List<TBATeamSimple> allTeams;
 
   @override
   State<TeamsTab> createState() => _TeamsTabState();

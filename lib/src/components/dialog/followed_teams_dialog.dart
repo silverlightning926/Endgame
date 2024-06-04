@@ -1,6 +1,6 @@
 import 'package:endgame/src/components/cards/followed_team_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
-import 'package:endgame/src/serialized/tba/tba_team.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:flutter/material.dart';
 
 class FollowedTeamsDialog extends StatefulWidget {
@@ -9,7 +9,7 @@ class FollowedTeamsDialog extends StatefulWidget {
     required this.followedTeams,
   });
 
-  final List<TBATeam> followedTeams;
+  final List<TBATeamSimple> followedTeams;
 
   @override
   State<FollowedTeamsDialog> createState() => _FollowedTeamsDialogState();

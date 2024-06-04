@@ -2,7 +2,7 @@ import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/data/home_screen_data.dart';
 import 'package:endgame/src/serialized/tba/tba_match.dart';
 import 'package:endgame/src/serialized/tba/tba_status.dart';
-import 'package:endgame/src/serialized/tba/tba_team.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:endgame/src/services/storage_service.dart';
 import 'package:endgame/src/services/tba_api_service.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +28,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     TBAStatus status = followedTeamsRequestFuture[0];
     List<String> followedTeams = followedTeamsRequestFuture[1];
 
-    Map<TBATeam, List<TBAMatch>> followedTeamsMatches = {};
+    Map<TBATeamSimple, List<TBAMatch>> followedTeamsMatches = {};
 
     for (String teamKey in followedTeams) {
-      TBATeam team = await TBAAPIService.getTeam(teamKey);
+      TBATeamSimple team = await TBAAPIService.getTeamSimple(teamKey);
       List<TBAMatch> matches = await TBAAPIService.getTeamMatchesForYear(
         teamKey,
         status.currentSeason ?? DateTime.now().year,
@@ -47,7 +47,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       TBAAPIService.getDistrictsForYear(
         status.currentSeason ?? DateTime.now().year,
       ),
-      TBAAPIService.getTeams(0),
+      TBAAPIService.getTeamsSimple(0),
     });
 
     return HomeScreenData(

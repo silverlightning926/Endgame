@@ -6,6 +6,7 @@ import 'package:endgame/src/serialized/tba/tba_event.dart';
 import 'package:endgame/src/serialized/tba/tba_match.dart';
 import 'package:endgame/src/serialized/tba/tba_status.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:endgame/src/services/api_secrets.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,6 +28,24 @@ class TBAAPIService {
       );
     } else {
       throw const HttpException('Failed to load status');
+    }
+  }
+
+  static Future<TBATeamSimple> getTeamSimple(String teamKey) async {
+    final String url = '$_baseUrl/team/$teamKey/simple';
+    final http.Response response = await http.get(
+      Uri.parse(url),
+      headers: <String, String>{
+        'X-TBA-Auth-Key': ApiSecrets.tbaKey,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return TBATeamSimple.fromJson(
+        jsonDecode(response.body),
+      );
+    } else {
+      throw const HttpException('Failed to load team');
     }
   }
 
@@ -102,8 +121,8 @@ class TBAAPIService {
     }
   }
 
-  static Future<List<TBATeam>> getTeams(int pageNum) async {
-    final String url = '$_baseUrl/teams/$pageNum';
+  static Future<List<TBATeamSimple>> getTeamsSimple(int pageNum) async {
+    final String url = '$_baseUrl/teams/$pageNum/simple';
     final http.Response response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
@@ -113,7 +132,7 @@ class TBAAPIService {
 
     if (response.statusCode == 200) {
       final List<dynamic> teams = jsonDecode(response.body);
-      return teams.map((dynamic team) => TBATeam.fromJson(team)).toList();
+      return teams.map((dynamic team) => TBATeamSimple.fromJson(team)).toList();
     } else {
       throw const HttpException('Failed to load teams');
     }

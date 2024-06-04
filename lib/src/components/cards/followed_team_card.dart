@@ -1,10 +1,10 @@
 import 'package:endgame/src/constants/color_constants.dart';
-import 'package:endgame/src/serialized/tba/tba_team.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FollowedTeamCard extends StatelessWidget {
-  final TBATeam team;
+  final TBATeamSimple team;
 
   const FollowedTeamCard({
     super.key,

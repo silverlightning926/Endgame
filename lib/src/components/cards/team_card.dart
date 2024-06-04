@@ -1,6 +1,9 @@
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
+import 'package:endgame/src/services/tba_api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TeamCard extends StatelessWidget {
   const TeamCard({
@@ -8,7 +11,11 @@ class TeamCard extends StatelessWidget {
     required this.team,
   });
 
-  final TBATeam team;
+  final TBATeamSimple team;
+
+  Future<TBATeam> _fetchFullTeamData() async {
+    return await TBAAPIService.getTeam(team.key ?? "");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +27,11 @@ class TeamCard extends StatelessWidget {
           color: ColorConstants.dialogColor,
           child: InkWell(
             // TODO: Implement Team Page
-            onTap: () {},
+            onTap: () async {
+              TBATeam teamData = await _fetchFullTeamData();
+              if (!context.mounted) return;
+              GoRouter.of(context).push("/team", extra: teamData);
+            },
             child: Ink(
               padding: const EdgeInsets.all(10),
               child: Row(
