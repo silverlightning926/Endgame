@@ -4,6 +4,8 @@ ENV FLUTTER_HOME=/usr/local/flutter
 ENV PATH=${FLUTTER_HOME}/bin:${PATH}
 ENV FLUTTER_ROOT=${FLUTTER_HOME}
 
+ARG TBA_API_KEY
+
 RUN apt-get update && \
     apt-get install -y \
     git \
@@ -12,10 +14,13 @@ RUN apt-get update && \
     libglu1-mesa \
     && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p lib/src/services
+RUN echo "class ApiSecrets {" > lib/src/services/api_secrets.dart && \
+    echo "  static const tbaKey = '$TBA_API_KEY';" >> lib/src/services/api_secrets.dart && \
+    echo "}" >> lib/src/services/api_secrets.dart
+
 WORKDIR /app
 COPY . .
-
-COPY lib/src/services/api_secrets.dart /app/lib/src/services/
 
 RUN dart run build_runner build --delete-conflicting-outputs
 
@@ -31,4 +36,3 @@ RUN flutter pub get
 RUN flutter doctor
 
 ENTRYPOINT ["bash", "-c", "flutter run --release"]
-

@@ -16,10 +16,5 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Set API Key Environment Variable
-      env:
-          TBA_API_KEY: ${{ secrets.TBA_API_KEY }}  # Replace with your actual secret name
-      run: echo "TBA_API_KEY=${TBA_API_KEY}" >> $GITHUB_ENV
-
     - name: Build the Docker image
-      run: docker build . --file Dockerfile -t endgame:$(date +%s)
+      run: docker build . --file Dockerfile -t endgame:$(date +%s) --build-arg TBA_API_KEY=${{ secrets.TBA_API_KEY }}
