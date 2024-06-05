@@ -100,7 +100,7 @@ Future<Map<String, List<TBAEvent>>> getEventsByDistrictForYear(
     });
 
   for (final District district in districts) {
-    eventsByDistrict[district.key!] = events
+    eventsByDistrict[district.displayName!] = events
         .where((TBAEvent event) =>
             event.district != null && event.district!.key == district.key)
         .toList()
