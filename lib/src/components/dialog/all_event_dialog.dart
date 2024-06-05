@@ -23,9 +23,9 @@ class _AllEventDialogState extends ConsumerState<AllEventsDialog> {
       children: [
         const AllEventsDialogTitle(),
         // TODO: Implement SeasonPicker
-        SeasonPicker(),
+        const SeasonPicker(),
         // TODO: Implement SeasonDivisionPicker Filtering
-        SeasonDivisionPicker(),
+        const SeasonDivisionPicker(),
         ref.watch(getStatusProvider).when(
               data: (TBAStatus status) {
                 return ref
