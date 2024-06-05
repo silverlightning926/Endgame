@@ -58,7 +58,6 @@ class LoadingScreen extends ConsumerWidget {
         );
       },
       error: (error, stackTrace) {
-        print("Error Loading Data: $stackTrace");
         return ScaffoldGradientBackground(
           gradient: ColorConstants.navigationGradient,
           body: Column(
