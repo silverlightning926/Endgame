@@ -27,7 +27,6 @@ class PaginationController extends StateNotifier<PaginationState> {
     _isFetching = true;
     state = PaginationState(teams: state.teams, isLoading: true);
 
-    // get current season
     final currentStatus = await ref.read(getStatusProvider.future);
     final newTeams = await ref.read(getTeamsSimpleForYearProvider(
       currentStatus.currentSeason ?? DateTime.now().year,
@@ -61,14 +60,12 @@ class AllTeamDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final paginationState = ref.watch(paginationControllerProvider);
 
-    if (!scrollController.hasListeners) {
-      scrollController.addListener(() {
-        if (scrollController.position.pixels ==
-            scrollController.position.maxScrollExtent) {
-          ref.read(paginationControllerProvider.notifier).nextPage();
-        }
-      });
-    }
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        ref.read(paginationControllerProvider.notifier).nextPage();
+      }
+    });
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
