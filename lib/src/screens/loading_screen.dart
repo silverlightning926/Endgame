@@ -7,94 +7,61 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scaffold_gradient_background/scaffold_gradient_background.dart';
 
-class LoadingScreen extends ConsumerWidget {
+class LoadingScreen extends ConsumerStatefulWidget {
   const LoadingScreen({super.key});
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends ConsumerState<LoadingScreen> {
+  Future<void> _initializeData() async {
+    await ref.read(loadHomeScreenDataProvider.future);
+  }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // when loadHomeScreenData provider is done loading, navigate to the home screen route '/, otherwise stay on the loading screen route '/loading'
-    final loadHomeScreenData = ref.watch(loadHomeScreenDataProvider);
-    return loadHomeScreenData.when(
-      data: (_) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          GoRouter.of(context).go('/');
-        });
-        return const SizedBox();
-      },
-      loading: () {
-        return ScaffoldGradientBackground(
-          gradient: ColorConstants.navigationGradient,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "ENDGAME",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.majorMonoDisplay(
-                  fontSize: 55,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 75,
-              ),
-              const SpinKitFadingCube(
-                color: ColorConstants.primaryNavigationColor,
-                size: 75,
-              ),
-              const SizedBox(
-                height: 75,
-              ),
-              Text(
-                "Loading...",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.majorMonoDisplay(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+  void initState() {
+    _initializeData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.go('/');
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldGradientBackground(
+      gradient: ColorConstants.navigationGradient,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "ENDGAME",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.majorMonoDisplay(
+              fontSize: 55,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        );
-      },
-      error: (error, stackTrace) {
-        return ScaffoldGradientBackground(
-          gradient: ColorConstants.navigationGradient,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "ENDGAME",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.majorMonoDisplay(
-                  fontSize: 55,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 75,
-              ),
-              const Icon(
-                Icons.error,
-                color: ColorConstants.primaryNavigationColor,
-                size: 75,
-              ),
-              const SizedBox(
-                height: 75,
-              ),
-              Text(
-                "Error Loading Data",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.majorMonoDisplay(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          const SizedBox(
+            height: 75,
           ),
-        );
-      },
+          const SpinKitFadingCube(
+            color: ColorConstants.primaryNavigationColor,
+            size: 75,
+          ),
+          const SizedBox(
+            height: 75,
+          ),
+          Text(
+            "Loading...",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.majorMonoDisplay(
+              fontSize: 23,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
