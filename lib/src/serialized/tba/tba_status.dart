@@ -5,13 +5,13 @@ part 'tba_status.g.dart';
 
 @freezed
 class TBAStatus with _$TBAStatus {
-  factory TBAStatus({
-    required AppVersion? android,
-    required int? currentSeason,
-    required List<dynamic> downEvents,
-    required AppVersion? ios,
-    required bool? isDatafeedDown,
-    required int? maxSeason,
+  const factory TBAStatus({
+    @JsonKey(name: "android") AppVersion? android,
+    @JsonKey(name: "current_season") int? currentSeason,
+    @JsonKey(name: "down_events") @Default([]) List<String> downEvents,
+    @JsonKey(name: "ios") AppVersion? ios,
+    @JsonKey(name: "is_datafeed_down") bool? isDatafeedDown,
+    @JsonKey(name: "max_season") int? maxSeason,
   }) = _TBAStatus;
 
   factory TBAStatus.fromJson(Map<String, dynamic> json) =>
@@ -20,9 +20,9 @@ class TBAStatus with _$TBAStatus {
 
 @freezed
 class AppVersion with _$AppVersion {
-  factory AppVersion({
-    required int? latestAppVersion,
-    required int? minAppVersion,
+  const factory AppVersion({
+    @JsonKey(name: "latest_app_version") int? latestAppVersion,
+    @JsonKey(name: "min_app_version") int? minAppVersion,
   }) = _AppVersion;
 
   factory AppVersion.fromJson(Map<String, dynamic> json) =>
