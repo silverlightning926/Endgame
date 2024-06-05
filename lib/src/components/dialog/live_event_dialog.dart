@@ -96,10 +96,10 @@ class LiveEventPrintDialog extends StatelessWidget {
         vertical: 20,
       ),
       margin: const EdgeInsets.only(bottom: 10),
-      child: const Center(
+      child: Center(
         child: Text(
-          "No live events",
-          style: TextStyle(
+          message,
+          style: const TextStyle(
             color: ColorConstants.dialogTextColor,
             fontSize: 20,
             fontWeight: FontWeight.bold,
