@@ -1,5 +1,4 @@
 import 'package:endgame/src/constants/color_constants.dart';
-import 'package:endgame/src/data/home_screen_data.dart';
 import 'package:endgame/src/screens/home_screen.dart';
 import 'package:endgame/src/screens/loading_screen.dart';
 import 'package:endgame/src/screens/team_data_screen.dart';
@@ -36,10 +35,7 @@ class _EndgameState extends State<Endgame> {
           GoRoute(
             path: '/',
             builder: (context, state) {
-              final data = state.extra as HomeScreenData;
-              return HomeScreen(
-                homeScreenData: data,
-              );
+              return const HomeScreen();
             },
           ),
           GoRoute(
