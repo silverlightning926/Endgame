@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 class EventRegionHeaderCard extends StatefulWidget {
   const EventRegionHeaderCard({
     super.key,
-    this.region,
+    required this.region,
     required this.eventsInRegion,
   });
 
-  final String? region;
+  final String region;
   final List<TBAEvent> eventsInRegion;
 
   @override
@@ -37,7 +37,7 @@ class _EventRegionHeaderCardState extends State<EventRegionHeaderCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.region ?? "Regional Events",
+                  widget.region,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
