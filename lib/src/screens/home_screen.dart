@@ -4,54 +4,27 @@ import 'package:endgame/src/components/tabs/events_tab.dart';
 import 'package:endgame/src/components/tabs/home_tab.dart';
 import 'package:endgame/src/components/tabs/settings_tab.dart';
 import 'package:endgame/src/components/tabs/teams_tab.dart';
-import 'package:endgame/src/data/home_screen_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    super.key,
-    required this.homeScreenData,
-  });
-
-  final HomeScreenData homeScreenData;
-
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _currentIndex = 0;
 
-  void _onTabSelected(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+  final List<Widget> _tabs = const [
+    HomeTab(),
+    EventsTab(),
+    TeamsTab(),
+    SettingsTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> navigationTabs = [
-      HomeTab(
-        followedTeamMatches: widget.homeScreenData.followedTeamMatches,
-        liveEvents: widget.homeScreenData.events.where((e) {
-          final now = DateTime.now();
-          return e.startDate!.isBefore(now) && e.endDate!.isAfter(now);
-        }).toList()
-          ..sort((a, b) => a.startDate!.compareTo(b.startDate!)),
-      ),
-      EventsTab(
-        currentYear:
-            widget.homeScreenData.status.currentSeason ?? DateTime.now().year,
-        districts: widget.homeScreenData.districts,
-        events: widget.homeScreenData.events,
-      ),
-      TeamsTab(
-        followedTeams: widget.homeScreenData.followedTeamMatches.keys.toList(),
-        allTeams: widget.homeScreenData.teams,
-      ),
-      const SettingsTab(),
-    ];
-
     return PopScope(
       child: SafeArea(
         top: false,
@@ -60,11 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: const CustomAppBar(),
           bottomNavigationBar: RoundedBottomNavigationBar(
             currentIndex: _currentIndex,
-            onTap: _onTabSelected,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
           ),
           body: Padding(
             padding: const EdgeInsets.fromLTRB(7, 10, 7, 0),
-            child: navigationTabs[_currentIndex],
+            child: _tabs[_currentIndex],
           ),
         ),
       ),
