@@ -1,66 +1,75 @@
-import 'package:endgame/src/components/cards/team_card.dart';
-import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
-import 'package:endgame/src/services/tba_api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:endgame/src/components/cards/team_card.dart';
+import 'package:endgame/src/providers/tba_api_providers.dart';
+import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 
-class AllTeamDialog extends StatefulWidget {
+class PaginationState {
+  PaginationState({required this.teams, required this.isLoading});
+
+  final List<TBATeamSimple> teams;
+  final bool isLoading;
+}
+
+class PaginationController extends StateNotifier<PaginationState> {
+  PaginationController(this.ref)
+      : super(PaginationState(teams: [], isLoading: false)) {
+    _fetchNextPage();
+  }
+
+  final Ref ref;
+  int currentPage = 0;
+  bool _isFetching = false;
+
+  Future<void> _fetchNextPage() async {
+    if (state.isLoading || _isFetching) return;
+
+    _isFetching = true;
+    state = PaginationState(teams: state.teams, isLoading: true);
+
+    // get current season
+    final currentStatus = await ref.read(getStatusProvider.future);
+    final newTeams = await ref.read(getTeamsSimpleForYearProvider(
+      currentStatus.currentSeason ?? DateTime.now().year,
+      currentPage,
+    ).future);
+    state =
+        PaginationState(teams: [...state.teams, ...newTeams], isLoading: false);
+    currentPage++;
+    _isFetching = false;
+  }
+
+  void nextPage() {
+    _fetchNextPage();
+  }
+}
+
+final paginationControllerProvider =
+    StateNotifierProvider<PaginationController, PaginationState>((ref) {
+  return PaginationController(ref);
+});
+
+class AllTeamDialog extends ConsumerWidget {
   const AllTeamDialog({
     super.key,
-    required this.allTeams,
     required this.scrollController,
   });
 
-  final List<TBATeamSimple> allTeams;
   final ScrollController scrollController;
 
   @override
-  State<AllTeamDialog> createState() => _AllTeamDialogState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final paginationState = ref.watch(paginationControllerProvider);
 
-class _AllTeamDialogState extends State<AllTeamDialog> {
-  List<TBATeamSimple> _allTeams = [];
-  bool _isLoading = false;
-  int _currentPage = 1;
-
-  @override
-  void initState() {
-    // TODO: Improve Team ListView Performance
-
-    super.initState();
-    _allTeams = widget.allTeams;
-    widget.scrollController.addListener(_scrollListener);
-  }
-
-  void _scrollListener() {
-    if (widget.scrollController.position.pixels ==
-            widget.scrollController.position.maxScrollExtent &&
-        !_isLoading) {
-      _fetchPage(_currentPage + 1).onError(
-        (error, stackTrace) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Failed to fetch more teams"),
-            ),
-          );
-        },
-      );
+    if (!scrollController.hasListeners) {
+      scrollController.addListener(() {
+        if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
+          ref.read(paginationControllerProvider.notifier).nextPage();
+        }
+      });
     }
-  }
 
-  Future<void> _fetchPage(int nextPage) async {
-    setState(() {
-      _isLoading = true;
-    });
-    List<TBATeamSimple> newTeams = await TBAAPIService.getTeamsSimple(nextPage);
-    setState(() {
-      _allTeams.addAll(newTeams);
-      _currentPage = nextPage;
-      _isLoading = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -77,22 +86,20 @@ class _AllTeamDialogState extends State<AllTeamDialog> {
           ),
         ),
         ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: _allTeams.length + (_isLoading ? 1 : 0),
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: paginationState.teams.length,
           itemBuilder: (BuildContext context, int index) {
-            if (index == _allTeams.length) {
-              return _isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : const SizedBox.shrink();
-            }
             return TeamCard(
-              team: _allTeams[index],
+              team: paginationState.teams[index],
             );
           },
         ),
+        if (paginationState.isLoading)
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Center(child: CircularProgressIndicator()),
+          ),
       ],
     );
   }
