@@ -22,6 +22,7 @@ dependencies:
   riverpod_annotation: ^2.3.5
   scaffold_gradient_background: ^1.0.3+1
   shared_preferences: ^2.2.3
+  toastification: ^2.0.0
 
 dev_dependencies:
   flutter_test:
