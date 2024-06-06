@@ -16,13 +16,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _tabs = const [
-    HomeTab(),
-    EventsTab(),
-    TeamsTab(),
-    SettingsTab(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -41,7 +34,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           body: Padding(
             padding: const EdgeInsets.fromLTRB(7, 10, 7, 0),
-            child: _tabs[_currentIndex],
+            child: IndexedStack(index: _currentIndex, children: const [
+              HomeTab(),
+              EventsTab(),
+              TeamsTab(),
+              SettingsTab(),
+            ]),
           ),
         ),
       ),
