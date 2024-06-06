@@ -8,7 +8,7 @@ import 'package:endgame/src/serialized/tba/tba_match_simple.dart';
 import 'package:endgame/src/serialized/tba/tba_status.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
 import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
-import 'package:endgame/src/services/api_secrets.dart';
+import 'package:endgame/src/providers/api_secrets.dart';
 
 part 'tba_api_providers.g.dart';
 
