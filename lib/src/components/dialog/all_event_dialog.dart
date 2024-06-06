@@ -1,55 +1,21 @@
 import 'package:endgame/src/components/cards/event_region_header_card.dart';
 import 'package:endgame/src/components/season_picker.dart';
+import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/providers/home_screen_data_providers.dart';
+import 'package:endgame/src/providers/tba_api_providers.dart';
 import 'package:endgame/src/season_division_picker.dart';
 import 'package:endgame/src/serialized/tba/tba_event.dart';
+import 'package:endgame/src/serialized/tba/tba_status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AllEventsDialog extends StatefulWidget {
-  const AllEventsDialog({
-    super.key,
-    required this.currentYear,
-    required this.districts,
-    required this.events,
-  });
-
-  final int currentYear;
-  final List<District> districts;
-  final List<TBAEvent> events;
-
+class AllEventsDialog extends ConsumerStatefulWidget {
+  const AllEventsDialog({super.key});
   @override
-  State<AllEventsDialog> createState() => _AllEventsDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _AllEventDialogState();
 }
 
-class _AllEventsDialogState extends State<AllEventsDialog> {
-  int currentSeasonDivisionIndex = 0;
-  late List<String> seasonDivision;
-
-  void _onSeasonDivisionChanged(int index) {
-    setState(() {
-      currentSeasonDivisionIndex = index;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: Fix Regional Events Not Appearing
-
-    widget.districts.sort((a, b) => a.displayName!.compareTo(b.displayName!));
-
-    seasonDivision = widget.events
-        .where((e) => e.week != null)
-        .map((e) => "Week ${e.week! + 1}")
-        .toSet()
-        .toList()
-      ..sort();
-    seasonDivision.insert(0, "All Weeks");
-    seasonDivision.insert(1, "Pre-Season");
-    seasonDivision.add("Championships");
-    seasonDivision.add("Off-Season");
-
-    super.initState();
-  }
-
+class _AllEventDialogState extends ConsumerState<AllEventsDialog> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,32 +23,72 @@ class _AllEventsDialogState extends State<AllEventsDialog> {
       children: [
         const AllEventsDialogTitle(),
         // TODO: Implement SeasonPicker
-        SeasonPicker(
-          currentYear: widget.currentYear,
-        ),
+        const SeasonPicker(),
         // TODO: Implement SeasonDivisionPicker Filtering
-        SeasonDivisionPicker(
-          seasonDivision: seasonDivision,
-          currentSeasonDivisionIndex: 0,
-          onSeasonDivisionChanged: _onSeasonDivisionChanged,
-        ),
-        ListView.builder(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: widget.districts.length,
-          itemBuilder: (context, index) {
-            return EventRegionHeaderCard(
-              region: widget.districts[index].displayName,
-              eventsInRegion: widget.events
-                  .where((e) =>
-                      e.district != null &&
-                      e.district!.key == widget.districts[index].key)
-                  .toList()
-                ..sort((a, b) => a.startDate!.compareTo(b.startDate!)),
-            );
-          },
-        ),
+        const SeasonDivisionPicker(),
+        ref.watch(getStatusProvider).when(
+              data: (TBAStatus status) {
+                return ref
+                    .watch(getEventsByDistrictForYearProvider(
+                      status.currentSeason ?? DateTime.now().year,
+                    ))
+                    .when(
+                      data: (Map<String, List<TBAEvent>> eventsByWeek) {
+                        if (eventsByWeek.isEmpty) {
+                          return const Text(
+                            "No Events",
+                            style: TextStyle(
+                              color: ColorConstants.dialogTextColor,
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: eventsByWeek.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return EventRegionHeaderCard(
+                              eventsInRegion:
+                                  eventsByWeek.values.elementAt(index),
+                              region: eventsByWeek.keys.elementAt(index),
+                            );
+                          },
+                        );
+                      },
+                      loading: () => const Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            ColorConstants.dialogTextColor,
+                          ),
+                        ),
+                      ),
+                      error: (error, stackTrace) => const Center(
+                        child: Text(
+                          "Unable To Load Events",
+                          style: TextStyle(
+                            color: ColorConstants.dialogTextColor,
+                          ),
+                        ),
+                      ),
+                    );
+              },
+              loading: () => const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    ColorConstants.dialogTextColor,
+                  ),
+                ),
+              ),
+              error: (error, stackTrace) => const Center(
+                child: Text(
+                  "Unable To Load Events",
+                  style: TextStyle(
+                    color: ColorConstants.dialogTextColor,
+                  ),
+                ),
+              ),
+            ),
       ],
     );
   }

@@ -1,27 +1,26 @@
 import 'package:endgame/src/components/cards/live_event_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/providers/home_screen_data_providers.dart';
 import 'package:endgame/src/serialized/tba/tba_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LiveEventDialog extends StatefulWidget {
-  const LiveEventDialog({
-    super.key,
-    required this.liveEvents,
-  });
-
-  final List<TBAEvent> liveEvents;
-
+class LiveEventsDialog extends ConsumerStatefulWidget {
+  const LiveEventsDialog({super.key});
   @override
-  State<LiveEventDialog> createState() => _LiveEventDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LiveEventsDialogState();
 }
 
-class _LiveEventDialogState extends State<LiveEventDialog> {
+class _LiveEventsDialogState extends ConsumerState<LiveEventsDialog> {
   bool collapsed = false;
 
   @override
   Widget build(BuildContext context) {
+    final asyncEvents = ref.watch(getLiveEventsProvider);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(10),
@@ -40,30 +39,49 @@ class _LiveEventDialogState extends State<LiveEventDialog> {
               });
             },
           ),
-          collapsed
-              ? const SizedBox()
-              : widget.liveEvents.isEmpty
-                  ? const NoLiveEventsDialog()
-                  : StaggeredGrid.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      children: widget.liveEvents
-                          .map((e) => LiveEventCard(
-                                event: e,
-                              ))
-                          .toList(),
-                    ),
+          if (!collapsed)
+            asyncEvents.when(
+              data: (List<TBAEvent> events) {
+                if (events.isEmpty) {
+                  return const LiveEventPrintDialog(
+                    message: "No Live Events",
+                  );
+                }
+                return StaggeredGrid.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  children: events
+                      .map((TBAEvent event) => LiveEventCard(event: event))
+                      .toList(),
+                );
+              },
+              loading: () => const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    ColorConstants.dialogTextColor,
+                  ),
+                ),
+              ),
+              error: (Object error, StackTrace stackTrace) {
+                return const LiveEventPrintDialog(
+                  message: "Unable To Load Live Events",
+                );
+              },
+            ),
         ],
       ),
     );
   }
 }
 
-class NoLiveEventsDialog extends StatelessWidget {
-  const NoLiveEventsDialog({
+class LiveEventPrintDialog extends StatelessWidget {
+  const LiveEventPrintDialog({
     super.key,
+    required this.message,
   });
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +96,10 @@ class NoLiveEventsDialog extends StatelessWidget {
         vertical: 20,
       ),
       margin: const EdgeInsets.only(bottom: 10),
-      child: const Center(
+      child: Center(
         child: Text(
-          "No live events",
-          style: TextStyle(
+          message,
+          style: const TextStyle(
             color: ColorConstants.dialogTextColor,
             fontSize: 20,
             fontWeight: FontWeight.bold,

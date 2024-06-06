@@ -5,37 +5,37 @@ part 'tba_event.g.dart';
 
 @freezed
 class TBAEvent with _$TBAEvent {
-  factory TBAEvent({
-    required String? address,
-    required String? city,
-    required String? country,
-    required District? district,
-    required List<String> divisionKeys,
-    required DateTime? endDate,
-    required String? eventCode,
-    required int? eventType,
-    required String? eventTypeString,
-    required String? firstEventCode,
-    required dynamic firstEventId,
-    required String? gmapsPlaceId,
-    required String? gmapsUrl,
-    required String? key,
-    required double? lat,
-    required double? lng,
-    required String? locationName,
-    required String? name,
-    required String? parentEventKey,
-    required int? playoffType,
-    required String? playoffTypeString,
-    required String? postalCode,
-    required String? shortName,
-    required DateTime? startDate,
-    required String? stateProv,
-    required String? timezone,
-    required List<Webcast> webcasts,
-    required String? website,
-    required int? week,
-    required int? year,
+  const factory TBAEvent({
+    @JsonKey(name: "address") String? address,
+    @JsonKey(name: "city") String? city,
+    @JsonKey(name: "country") String? country,
+    @JsonKey(name: "district") District? district,
+    @JsonKey(name: "division_keys") @Default([]) List<String> divisionKeys,
+    @JsonKey(name: "end_date") DateTime? endDate,
+    @JsonKey(name: "event_code") String? eventCode,
+    @JsonKey(name: "event_type") int? eventType,
+    @JsonKey(name: "event_type_string") String? eventTypeString,
+    @JsonKey(name: "first_event_code") String? firstEventCode,
+    @JsonKey(name: "first_event_id") dynamic firstEventId,
+    @JsonKey(name: "gmaps_place_id") String? gmapsPlaceId,
+    @JsonKey(name: "gmaps_url") String? gmapsUrl,
+    @JsonKey(name: "key") String? key,
+    @JsonKey(name: "lat") double? lat,
+    @JsonKey(name: "lng") double? lng,
+    @JsonKey(name: "location_name") String? locationName,
+    @JsonKey(name: "name") String? name,
+    @JsonKey(name: "parent_event_key") dynamic parentEventKey,
+    @JsonKey(name: "playoff_type") int? playoffType,
+    @JsonKey(name: "playoff_type_string") dynamic playoffTypeString,
+    @JsonKey(name: "postal_code") String? postalCode,
+    @JsonKey(name: "short_name") String? shortName,
+    @JsonKey(name: "start_date") DateTime? startDate,
+    @JsonKey(name: "state_prov") String? stateProv,
+    @JsonKey(name: "timezone") String? timezone,
+    @JsonKey(name: "webcasts") @Default([]) List<Webcast> webcasts,
+    @JsonKey(name: "website") String? website,
+    @JsonKey(name: "week") int? week,
+    @JsonKey(name: "year") int? year,
   }) = _TBAEvent;
 
   factory TBAEvent.fromJson(Map<String, dynamic> json) =>
@@ -44,11 +44,11 @@ class TBAEvent with _$TBAEvent {
 
 @freezed
 class District with _$District {
-  factory District({
-    required String? abbreviation,
-    required String? displayName,
-    required String? key,
-    required int? year,
+  const factory District({
+    @JsonKey(name: "abbreviation") String? abbreviation,
+    @JsonKey(name: "display_name") String? displayName,
+    @JsonKey(name: "key") String? key,
+    @JsonKey(name: "year") int? year,
   }) = _District;
 
   factory District.fromJson(Map<String, dynamic> json) =>
@@ -57,10 +57,9 @@ class District with _$District {
 
 @freezed
 class Webcast with _$Webcast {
-  factory Webcast({
-    required String? channel,
-    required String? type,
-    required String? date,
+  const factory Webcast({
+    @JsonKey(name: "channel") String? channel,
+    @JsonKey(name: "type") String? type,
   }) = _Webcast;
 
   factory Webcast.fromJson(Map<String, dynamic> json) =>

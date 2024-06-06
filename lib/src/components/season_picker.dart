@@ -1,21 +1,12 @@
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/providers/home_screen_data_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SeasonPicker extends StatelessWidget {
-  const SeasonPicker({
-    super.key,
-    required this.currentYear,
-  });
-
-  final int currentYear;
-
+class SeasonPicker extends ConsumerWidget {
+  const SeasonPicker({super.key});
   @override
-  Widget build(BuildContext context) {
-    List<String> years = List.generate(
-      currentYear - 1991,
-      (index) => (currentYear - index).toString(),
-    );
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
@@ -23,17 +14,51 @@ class SeasonPicker extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       margin: const EdgeInsets.only(bottom: 10),
-      child: DropdownButton(
-        value: years[0],
-        underline: const SizedBox(),
+      child: DropdownButton<Object?>(
         isExpanded: true,
-        items: years.map((String value) {
-          return DropdownMenuItem(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        onChanged: (String? value) {},
+        items: ref.watch(getSeasonsProvider).when(
+              data: (List<String> seasons) {
+                return seasons
+                    .map(
+                      (String season) => DropdownMenuItem(
+                        value: season,
+                        child: Text(
+                          season,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: ColorConstants.dialogTextColor,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList();
+              },
+              loading: () => [
+                const DropdownMenuItem(
+                  value: null,
+                  child: Text(
+                    "Loading Seasons",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: ColorConstants.dialogTextColor,
+                    ),
+                  ),
+                ),
+              ],
+              error: (error, stackTrace) => const [
+                DropdownMenuItem(
+                  value: null,
+                  child: Text(
+                    "Unable To Load Seasons",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: ColorConstants.dialogTextColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+        onChanged: (Object? value) {},
       ),
     );
   }

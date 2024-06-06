@@ -1,21 +1,18 @@
 import 'package:endgame/src/components/cards/followed_team_card.dart';
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/providers/home_screen_data_providers.dart';
 import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FollowedTeamsDialog extends StatefulWidget {
-  const FollowedTeamsDialog({
-    super.key,
-    required this.followedTeams,
-  });
-
-  final List<TBATeamSimple> followedTeams;
-
+class FollowedTeamsDialog extends ConsumerStatefulWidget {
+  const FollowedTeamsDialog({super.key});
   @override
-  State<FollowedTeamsDialog> createState() => _FollowedTeamsDialogState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _FollowedTeamsDialogState();
 }
 
-class _FollowedTeamsDialogState extends State<FollowedTeamsDialog> {
+class _FollowedTeamsDialogState extends ConsumerState<FollowedTeamsDialog> {
   bool collapsed = false;
 
   @override
@@ -38,18 +35,34 @@ class _FollowedTeamsDialogState extends State<FollowedTeamsDialog> {
               });
             },
           ),
-          collapsed
-              ? const SizedBox()
-              : Column(
-                  children: [
-                    if (widget.followedTeams.isEmpty)
-                      const NoTeamsFollowedDialog()
-                    else
-                      for (final team in widget.followedTeams)
-                        FollowedTeamCard(
-                          team: team,
-                        ),
-                  ],
+          if (!collapsed)
+            ref.watch(getFollowedTeamsProvider).when(
+                  data: (List<TBATeamSimple> teams) {
+                    if (teams.isEmpty) {
+                      return const TeamsFollowedPrintDialog(
+                        message: "No Teams Followed",
+                      );
+                    }
+                    return ListView.builder(
+                      itemBuilder: (context, index) =>
+                          FollowedTeamCard(team: teams[index]),
+                      itemCount: teams.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                    );
+                  },
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        ColorConstants.dialogTextColor,
+                      ),
+                    ),
+                  ),
+                  error: (Object error, StackTrace stackTrace) {
+                    return const TeamsFollowedPrintDialog(
+                      message: "Unable to Load Teams Followed",
+                    );
+                  },
                 ),
         ],
       ),
@@ -57,10 +70,13 @@ class _FollowedTeamsDialogState extends State<FollowedTeamsDialog> {
   }
 }
 
-class NoTeamsFollowedDialog extends StatelessWidget {
-  const NoTeamsFollowedDialog({
+class TeamsFollowedPrintDialog extends StatelessWidget {
+  const TeamsFollowedPrintDialog({
     super.key,
+    required this.message,
   });
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +91,10 @@ class NoTeamsFollowedDialog extends StatelessWidget {
         vertical: 20,
       ),
       margin: const EdgeInsets.only(bottom: 10),
-      child: const Center(
+      child: Center(
         child: Text(
-          "No Teams Followed",
-          style: TextStyle(
+          message,
+          style: const TextStyle(
             color: ColorConstants.dialogTextColor,
             fontSize: 20,
             fontWeight: FontWeight.bold,
