@@ -15,6 +15,7 @@ class SeasonPicker extends ConsumerWidget {
       ),
       margin: const EdgeInsets.only(bottom: 10),
       child: DropdownButton<Object?>(
+        underline: Container(),
         isExpanded: true,
         items: ref.watch(getSeasonsProvider).when(
               data: (List<String> seasons) {
