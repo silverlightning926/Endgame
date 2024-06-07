@@ -1,4 +1,6 @@
+import 'package:endgame/src/components/dialog/all_teams_dialog.dart';
 import 'package:endgame/src/constants/color_constants.dart';
+import 'package:endgame/src/providers/home_screen_data_providers.dart';
 import 'package:endgame/src/providers/storage_providers.dart';
 import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +103,11 @@ class _FollowedTeamCardState extends ConsumerState<FollowedTeamCard> {
           isLoading = false;
         });
         _showToast(success);
+
+        if (success) {
+          ref.invalidate(getFollowedTeamsProvider);
+          ref.invalidate(paginationControllerProvider);
+        }
       }
     } else {
       _showToast(false);
