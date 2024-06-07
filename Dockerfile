@@ -14,10 +14,10 @@ RUN apt-get update && \
     libglu1-mesa \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p lib/src/services
-RUN echo "class ApiSecrets {" > lib/src/services/api_secrets.dart && \
-    echo "  static const tbaKey = '$TBA_API_KEY';" >> lib/src/services/api_secrets.dart && \
-    echo "}" >> lib/src/services/api_secrets.dart
+RUN mkdir -p lib/src/providers
+RUN echo "class ApiSecrets {" > lib/src/providers/api_secrets.dart && \
+    echo "  static const tbaKey = '$TBA_API_KEY';" >> lib/src/providers/api_secrets.dart && \
+    echo "}" >> lib/src/providers/api_secrets.dart
 
 WORKDIR /app
 COPY . .
