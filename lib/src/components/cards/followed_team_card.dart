@@ -27,54 +27,61 @@ class _FollowedTeamCardState extends ConsumerState<FollowedTeamCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Container(
-        decoration: BoxDecoration(
-          color: ColorConstants.dialogColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 275,
-                  child: Text(
-                    widget.team.nickname ?? "",
-                    softWrap: true,
-                    style: GoogleFonts.roboto(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: ColorConstants.dialogTextColor,
-                    ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Material(
+          child: InkWell(
+            onTap: () {},
+            child: Ink(
+              decoration: const BoxDecoration(
+                color: ColorConstants.dialogColor,
+              ),
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 275,
+                        child: Text(
+                          widget.team.nickname ?? "",
+                          softWrap: true,
+                          style: GoogleFonts.roboto(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: ColorConstants.dialogTextColor,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "${widget.team.teamNumber}",
+                        style: GoogleFonts.roboto(
+                          fontSize: 15,
+                          color: ColorConstants.dialogTextColor,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Text(
-                  "${widget.team.teamNumber}",
-                  style: GoogleFonts.roboto(
-                    fontSize: 15,
-                    color: ColorConstants.dialogTextColor,
+                  const Gap(10),
+                  IconButton(
+                    onPressed: _removeTeam,
+                    icon: isLoading
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.star),
+                    color: ColorConstants.followedTeamCardFollowButtomColor,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            const Gap(10),
-            IconButton(
-              onPressed: _removeTeam,
-              icon: isLoading
-                  ? const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : const Icon(Icons.star),
-              color: ColorConstants.followedTeamCardFollowButtomColor,
-            ),
-          ],
+          ),
         ),
       ),
     );
