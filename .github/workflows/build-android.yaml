@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate Secrets File
-        run: echo "class ApiSecrets { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/services/api_secrets.dart
+        run: echo "class ApiSecrets { static const tbaKey = '${{ secrets.TBA_KEY }}'; }" > lib/src/providers/api_secrets.dart
 
       - name: Setup Java Environment        
         uses: actions/setup-java@v4.2.1
