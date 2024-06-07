@@ -2,6 +2,7 @@ import 'package:date_time_format/date_time_format.dart';
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/serialized/tba/tba_event.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({
@@ -44,7 +45,7 @@ class EventCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 5),
+                      const Gap(5),
                       SizedBox(
                         width: 200,
                         child: Text(
