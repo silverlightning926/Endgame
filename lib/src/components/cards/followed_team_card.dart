@@ -3,6 +3,7 @@ import 'package:endgame/src/providers/storage_providers.dart';
 import 'package:endgame/src/serialized/tba/tba_team_simple.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toastification/toastification.dart';
 
@@ -41,7 +42,7 @@ class _FollowedTeamCardState extends ConsumerState<FollowedTeamCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TeamImageReplacement(teamNumber: "${widget.team.teamNumber}"),
-                const SizedBox(width: 10),
+                const Gap(10),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
