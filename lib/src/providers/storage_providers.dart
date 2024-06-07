@@ -20,18 +20,18 @@ Future<bool> setFollowedTeamKeys(
 Future<bool> addFollowedTeamKey(
     AddFollowedTeamKeyRef ref, String teamKey) async {
   final List<String> followedTeams =
-      await ref.watch(getFollowedTeamKeysProvider.future);
+      await ref.read(getFollowedTeamKeysProvider.future);
   if (!followedTeams.contains(teamKey)) {
     followedTeams.add(teamKey);
   }
-  return ref.watch(setFollowedTeamKeysProvider(followedTeams).future);
+  return ref.read(setFollowedTeamKeysProvider(followedTeams).future);
 }
 
 @riverpod
 Future<bool> removeFollowedTeamKey(
     RemoveFollowedTeamKeyRef ref, String teamKey) async {
   final List<String> followedTeams =
-      await ref.watch(getFollowedTeamKeysProvider.future);
+      await ref.read(getFollowedTeamKeysProvider.future);
   followedTeams.remove(teamKey);
   return ref.watch(setFollowedTeamKeysProvider(followedTeams).future);
 }

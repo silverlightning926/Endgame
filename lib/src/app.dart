@@ -6,6 +6,7 @@ import 'package:endgame/src/serialized/tba/tba_team.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:toastification/toastification.dart';
 
 class Endgame extends StatefulWidget {
   const Endgame({super.key});
@@ -22,47 +23,52 @@ class _EndgameState extends State<Endgame> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: "Endgame",
-      debugShowCheckedModeBanner: false,
-      routerConfig: GoRouter(
-        initialLocation: '/loading',
-        routes: [
-          GoRoute(
-            path: '/loading',
-            builder: (context, state) => const LoadingScreen(),
-          ),
-          GoRoute(
-            path: '/',
-            builder: (context, state) {
-              return const HomeScreen();
-            },
-          ),
-          GoRoute(
-            path: '/team',
-            builder: (context, state) {
-              final data = state.extra as TBATeam;
-              return TeamDataScreen(
-                team: data,
-              );
-            },
-          ),
-        ],
+    return ToastificationWrapper(
+      config: const ToastificationConfig(
+        alignment: Alignment.bottomCenter,
       ),
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColor,
-        appBarTheme: AppBarTheme(
-          elevation: 0,
-          titleTextStyle: GoogleFonts.majorMonoDisplay(
-            fontSize: 40,
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.bold,
-          ),
+      child: MaterialApp.router(
+        title: "Endgame",
+        debugShowCheckedModeBanner: false,
+        routerConfig: GoRouter(
+          initialLocation: '/loading',
+          routes: [
+            GoRoute(
+              path: '/loading',
+              builder: (context, state) => const LoadingScreen(),
+            ),
+            GoRoute(
+              path: '/',
+              builder: (context, state) {
+                return const HomeScreen();
+              },
+            ),
+            GoRoute(
+              path: '/team',
+              builder: (context, state) {
+                final data = state.extra as TBATeam;
+                return TeamDataScreen(
+                  team: data,
+                );
+              },
+            ),
+          ],
         ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          elevation: 0,
-          selectedItemColor: ColorConstants.primaryNavigationColor,
-          unselectedItemColor: ColorConstants.secondaryNavigationColor,
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColor,
+          appBarTheme: AppBarTheme(
+            elevation: 0,
+            titleTextStyle: GoogleFonts.majorMonoDisplay(
+              fontSize: 40,
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            elevation: 0,
+            selectedItemColor: ColorConstants.primaryNavigationColor,
+            unselectedItemColor: ColorConstants.secondaryNavigationColor,
+          ),
         ),
       ),
     );
