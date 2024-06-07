@@ -1,5 +1,6 @@
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UpcomingMatchOverviewCard extends StatelessWidget {
@@ -112,7 +113,7 @@ class MatchTeamTable extends StatelessWidget {
                 fontWeight: FontWeight.w900,
               ),
             ),
-            const SizedBox(width: 5),
+            const Gap(5),
             Text(
               "@ $eventName",
               style: GoogleFonts.roboto(
@@ -123,9 +124,9 @@ class MatchTeamTable extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 5),
+        const Gap(5),
         const Divider(color: Colors.white),
-        const SizedBox(height: 5),
+        const Gap(5),
         Text(
           "Upcoming Match",
           style: GoogleFonts.roboto(
@@ -134,7 +135,7 @@ class MatchTeamTable extends StatelessWidget {
             fontWeight: FontWeight.w900,
           ),
         ),
-        const SizedBox(height: 5),
+        const Gap(5),
         Text(
           "${matchDateTime.hour}:${matchDateTime.minute} ${matchDateTime.hour > 12 ? "PM" : "AM"} on ${matchDateTime.month}/${matchDateTime.day}",
           style: GoogleFonts.roboto(
@@ -144,9 +145,9 @@ class MatchTeamTable extends StatelessWidget {
             fontStyle: FontStyle.italic,
           ),
         ),
-        const SizedBox(height: 5),
+        const Gap(5),
         const Divider(color: Colors.white),
-        const SizedBox(height: 5),
+        const Gap(5),
         Row(
           children: [
             Text(
@@ -157,7 +158,7 @@ class MatchTeamTable extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const SizedBox(width: 5),
+            const Gap(5),
             Text(
               matchType,
               style: GoogleFonts.roboto(
@@ -169,7 +170,7 @@ class MatchTeamTable extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 5),
+        const Gap(5),
         Column(
           children: [
             RedAllianceTable(
@@ -177,7 +178,7 @@ class MatchTeamTable extends StatelessWidget {
               redTeam2: redTeam2,
               redTeam3: redTeam3,
             ),
-            const SizedBox(height: 5),
+            const Gap(5),
             BlueAllianceTable(
               blueTeam1: blueTeam1,
               blueTeam2: blueTeam2,
@@ -220,15 +221,15 @@ class RedAllianceTable extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(width: 5),
+          const Gap(5),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TeamButton(team: redTeam1),
-                const SizedBox(width: 5),
+                const Gap(5),
                 TeamButton(team: redTeam2),
-                const SizedBox(width: 5),
+                const Gap(5),
                 TeamButton(team: redTeam3),
               ],
             ),
@@ -269,15 +270,15 @@ class BlueAllianceTable extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(width: 5),
+          const Gap(5),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TeamButton(team: blueTeam1),
-                const SizedBox(width: 5),
+                const Gap(5),
                 TeamButton(team: blueTeam2),
-                const SizedBox(width: 5),
+                const Gap(5),
                 TeamButton(team: blueTeam3),
               ],
             ),

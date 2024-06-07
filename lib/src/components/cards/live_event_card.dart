@@ -2,6 +2,7 @@ import 'package:date_time_format/date_time_format.dart';
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/serialized/tba/tba_event.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class LiveEventCard extends StatelessWidget {
   const LiveEventCard({
@@ -32,7 +33,7 @@ class LiveEventCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 5),
+                const Gap(5),
                 Text(
                   "${event.city}, ${event.stateProv}, ${event.country}",
                   style: const TextStyle(
@@ -40,7 +41,7 @@ class LiveEventCard extends StatelessWidget {
                     color: ColorConstants.dialogTextColor,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const Gap(10),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
@@ -62,7 +63,7 @@ class LiveEventCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
+                const Gap(5),
                 if (event.webcasts.isNotEmpty)
                   Align(
                     alignment: Alignment.centerRight,
