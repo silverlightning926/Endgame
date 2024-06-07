@@ -2,9 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "endgame",
+            "name": "endgame (debug mode)",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "flutterMode": "debug"
         },
         {
             "name": "endgame (profile mode)",
