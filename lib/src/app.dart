@@ -1,6 +1,5 @@
 import 'package:endgame/src/constants/color_constants.dart';
 import 'package:endgame/src/screens/home_screen.dart';
-import 'package:endgame/src/screens/loading_screen.dart';
 import 'package:endgame/src/screens/team_data_screen.dart';
 import 'package:endgame/src/serialized/tba/tba_team.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +30,8 @@ class _EndgameState extends State<Endgame> {
         title: "Endgame",
         debugShowCheckedModeBanner: false,
         routerConfig: GoRouter(
-          initialLocation: '/loading',
+          initialLocation: '/',
           routes: [
-            GoRoute(
-              path: '/loading',
-              builder: (context, state) => const LoadingScreen(),
-            ),
             GoRoute(
               path: '/',
               builder: (context, state) {
