@@ -28,44 +28,41 @@ class _FollowedTeamCardState extends ConsumerState<FollowedTeamCard> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: ColorConstants.dialogColor,
-          borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(10),
-          ),
+          borderRadius: BorderRadius.circular(10),
         ),
+        padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TeamImageReplacement(teamNumber: "${widget.team.teamNumber}"),
-                const Gap(10),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.team.nickname ?? "",
-                      style: GoogleFonts.roboto(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: ColorConstants.dialogTextColor,
-                      ),
+                SizedBox(
+                  width: 275,
+                  child: Text(
+                    widget.team.nickname ?? "",
+                    softWrap: true,
+                    style: GoogleFonts.roboto(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: ColorConstants.dialogTextColor,
                     ),
-                    Text(
-                      "${widget.team.teamNumber}",
-                      style: GoogleFonts.roboto(
-                        fontSize: 15,
-                        color: ColorConstants.dialogTextColor,
-                      ),
-                    ),
-                  ],
+                  ),
+                ),
+                Text(
+                  "${widget.team.teamNumber}",
+                  style: GoogleFonts.roboto(
+                    fontSize: 15,
+                    color: ColorConstants.dialogTextColor,
+                  ),
                 ),
               ],
             ),
+            const Gap(10),
             IconButton(
               onPressed: _removeTeam,
               icon: isLoading
@@ -117,37 +114,6 @@ class _FollowedTeamCardState extends ConsumerState<FollowedTeamCard> {
       autoCloseDuration: const Duration(seconds: 3),
       type: success ? ToastificationType.success : ToastificationType.error,
       icon: success ? const Icon(Icons.check) : const Icon(Icons.error),
-    );
-  }
-}
-
-class TeamImageReplacement extends StatelessWidget {
-  const TeamImageReplacement({
-    super.key,
-    required this.teamNumber,
-  });
-
-  final String teamNumber;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 65,
-      height: 65,
-      decoration: BoxDecoration(
-        color:
-            ColorConstants.followedTeamCardTeamImageReplacementBackgroundColor,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text(
-          teamNumber,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: ColorConstants.followedTeamCardTeamImageReplacementTextColor,
-          ),
-        ),
-      ),
     );
   }
 }
